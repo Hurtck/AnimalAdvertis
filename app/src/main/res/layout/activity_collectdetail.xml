@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="animaladvertis.com.animaladvertis.CollectdetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/grayUserTop">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="33dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_collectdetail_back"
+                android:background="@drawable/back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="43dp"
+                android:id="@+id/ib_detail_a"
+                android:layout_margin="10dp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="43dp"
+                android:id="@+id/ib_detail_b"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp" />
+        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_collectdetail_list"
+                android:layout_width="30dp"
+                android:layout_height="33dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/list" />
+
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fl_content">
+    </FrameLayout>
+
+
+</LinearLayout>

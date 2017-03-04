@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayUserTop"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="animaladvertis.com.animaladvertis.SearchActivity">
+    <animaladvertis.com.animaladvertis.myview.RadarView
+        android:id="@+id/radar"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="400dp"
+        android:layout_height="400dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/radar"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="附近动物数量"
+            android:textAllCaps="true"
+            android:textSize="30sp"
+            android:textColor="@color/littleGravy" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="2"
+            android:id="@+id/tv_search_number"
+            android:textStyle="normal|bold"
+            android:textAllCaps="true"
+            android:textSize="35sp"
+            android:textColor="@color/littleGravy"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grayUserPhoto"
+            android:text="打开地图开始捕捉"
+            android:textColor="@color/littleGravy"
+            android:id="@+id/br_search_map"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="33dp"
+        android:id="@+id/iv_search_back"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/back" />
+
+</RelativeLayout>

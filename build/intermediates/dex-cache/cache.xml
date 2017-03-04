@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.jakewharton\butterknife\8.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="74ca46e7da11e3d065eb64cdbe6568a7ed74c211">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.jakewharton-butterknife-8.0.1_4adbf52cb0de10a77699b28a6c398dfac860f722.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\rxandroid-1.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="19beef6debb6a22febc28777464c71bfccbafe3d">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\rxandroid-1.2.0_a68b9ce62c28672a3d532f2dd507398d082333b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_3a14149a9b6f586f727c329c7d98bd7c5eb56ef6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_29d92f151c3e71480e356969edcbc5c23399bb61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_9625d04dec582d5d322c6803159f037ade48fd3d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\47321\.gradle\caches\modules-2\files-2.1\cn.bmob.android\http-legacy\1.0\5320fd78dd7f154e586970d4f02befc9b58432aa\http-legacy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5320fd78dd7f154e586970d4f02befc9b58432aa">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\http-legacy-1.0_7942fb59deecc8c29075d358aa2ed9c352108645.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.github.john990\WaveView\v0.9\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="71199ae2bce8d5b5ddf0b463a72ea846aa637274">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.github.john990-WaveView-v0.9_8a8e45ff47f78032efaf6c123e52373318fa6643.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_55d819cc31d2c236b78b208fe019058b324914fa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_e3bb3ec77eb412aab83d118fee12cf3ebdc235c3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\gson-2.6.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="dd625f5e7bba8235782b5dc4244c3fd26953190f">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\gson-2.6.2_413a41a0dd8b580d236820753d5087fd8530a853.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d1c350a6560c6784c1d89e8e40326d81c0c0e899.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_674eccd39ea65b1fcc4f820ad03a0eb46a317b39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.github.zzz40500\android-shapeLoadingView\1.0.3.2\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0cc1eadbbbd59d1ac49015550ce8e11e2dff5eff">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.github.zzz40500-android-shapeLoadingView-1.0.3.2_c51887b5173b7911e3ffd017ada1183c14559f04.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\47321\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife-annotations\8.0.1\345b89f45d02d8b09400b472fab7b7e38f4ede1f\butterknife-annotations-8.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="345b89f45d02d8b09400b472fab7b7e38f4ede1f">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\butterknife-annotations-8.0.1_e7a42f9a994784e2fe4544fe308385141b8d8bfe.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.2.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0a4207597233f779fc933633711517b53ae84d29">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.github.traex.rippleeffect-library-1.2.3_026aeb12f38386919bb226bf27f1fa47ee8c4a10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_b179c611e85256bdb03acd267fb59cdebe7d9298.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\okhttp-3.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7cb33d9f82d3b8521c6594b180f4dd9fc6d49f2">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\okhttp-3.3.1_91d1c1d891fd3beed322823ef26060bc8252a332.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.daimajia.numberprogressbar\library\1.2\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4196173ec5799ff211761f90874802789c6cc4ac">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.daimajia.numberprogressbar-library-1.2_96ac5f77f03683587470453098798cf9ae6b1ee3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.2.1_ff442a8834d46d37fd4d423d7166787c8be399e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_e1c6ebd9b90a7d54c4295f4547bd3f222763957e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_758d3e40021ed55062876a968fbf5873e4160eef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_6063497ed569a44daf74da8895f7ea04f94271e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e47f10299673ab68f24c595f96b18086cc9a8384">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\cn.bmob.android-bmob-sdk-3.5.0_9137720380aed977dfb1637f8c39d000f703bb47.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\47321\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\library-2.4.0_bc67e0167aade31601044d1f39a2fb721458b9e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\47321\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\glide-3.7.0_2b6da67b22290e3d84ddeb5f5c8fae25b69b56cc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\okio-1.7.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="bbeca71da43c8f4bc9ceedec002060f53437ad26">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\okio-1.7.0_d84db30b4a2da55dda3d2c7879e88255848b05af.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_86b16c6493735c57c1e0ee69a20ec676fa93a420.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_494b7e1f143e8259c27395e5c03b1f314950e81f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_692abd9fe8b2ce24b09d685344226ab804f0a275.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\rxjava-1.1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="ac615240b277e7fd3950d7b35f73b733f310cede">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\rxjava-1.1.6_4977db201773e491cdc668206b00d2a9f03bf57a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\environment\android_sdk_r24.3.4\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_55aba99dd49b139864a77d5f3f9f7450a99c0fef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.2.1_c6ff327ccf09d672754e212d13f5e9ee70648c7e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\de.hdodenhof-circleimageview-2.1.0_5de8f23bdd1692e322c3e278c6668127419aa910.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\libs\BaiduLBS_Android.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f52b938f2e4d05d6afb47c0fc4330c98efd868bd">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\BaiduLBS_Android_4536e276b1fc22e4ab6c771eb6fcd71dc919f43f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\BmobSDK_3.5.0_20160630.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8eb5c605a02f792e326c5ac8e4feb2c18dd171ad">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\BmobSDK_3.5.0_20160630_d5b14190b43fa150b06fd322b53df6c6727c66ad.jar" />
+    </item>
+
+</items>

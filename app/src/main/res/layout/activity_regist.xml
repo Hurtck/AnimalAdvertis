@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_regist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayUserTop"
+    tools:context="animaladvertis.com.animaladvertis.RegistActivity">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tva"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*必填"
+            android:textColor="@color/lineFirst" />
+        <EditText
+            android:id="@+id/et_regist_userName"
+            android:layout_width="250dp"
+            android:hint="请输入用户名"
+            android:text="hurtck"
+            android:textColorHint="@color/littleGravy"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textColor="?attr/colorButtonNormal" />
+        <TextView
+            android:id="@+id/tvb"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*必填"
+            android:textColor="@color/lineFirst" />
+
+        <EditText
+            android:id="@+id/et_regist_pwd"
+            android:layout_marginBottom="30dp"
+            android:layout_width="250dp"
+            android:hint="请输入密码"
+            android:text="hurtck"
+            android:textColorHint="@color/littleGravy"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorButtonNormal" />
+        <TextView
+            android:id="@+id/tvc"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*必填"
+            android:textColor="@color/lineFirst" />
+        <EditText
+            android:id="@+id/et_regist_email"
+            android:layout_marginBottom="30dp"
+            android:layout_width="250dp"
+            android:hint="请输入邮箱"
+            android:text="13047909670@163.com"
+            android:textColorHint="@color/littleGravy"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorButtonNormal" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_regist"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp" />
+
+    <com.mingle.widget.LoadingView
+        android:id="@+id/load_regist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_marginRight="51dp"
+        android:layout_marginEnd="51dp">
+
+    </com.mingle.widget.LoadingView>
+
+</RelativeLayout>

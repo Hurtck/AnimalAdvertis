@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <com.john.waveview.WaveView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/lineSecend"
+        app:wave_height="middle"
+        app:wave_hz="normal"
+        app:wave_length="middle"
+        android:id="@+id/vw_item_progress"/>
+
+    <TextView
+        android:id="@+id/tv_item_description"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收集成功后可以获得100积分"
+        android:textStyle="normal|bold"
+        android:textAllCaps="true"
+        android:textSize="18sp" />
+
+</FrameLayout>

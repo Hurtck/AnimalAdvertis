@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="grayUserTop">#2d3134</color>
+    <color name="grayUserPhoto">#3a3f43</color>
+    <color name="lineFirst">#a43131</color>
+    <color name="lineSecend">#25ac5d</color>
+    <color name="lineLast">#2a7fb8</color>
+    <color name="littleGravy">#8c9092</color>
+    <color name="alpheDark">#8f090909</color>
+    <color name="alpheDarkm">#77090909</color>
+    <color name="dark">#265037</color>
+    <color name="alpheGray">#a7a2a7a4</color>
+</resources>

@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayUserTop"
+    android:orientation="vertical"
+    tools:context="layout.RankFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <animaladvertis.com.animaladvertis.myview.NoScrollListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lv_rank"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:background="@color/grayUserTop">
+    </animaladvertis.com.animaladvertis.myview.NoScrollListView>
+
+</LinearLayout>

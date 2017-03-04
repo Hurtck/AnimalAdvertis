@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "F:/myproject/AnimalAdvertis/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"F:\\environment\\android_sdk_r24.3.4\\cmake\\3.6.3155560\\bin\\cmake.exe --build F:\\myproject\\AnimalAdvertis\\app\\.externalNativeBuild\\cmake\\debug\\mips64 --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-lib-Debug-mips64" : 
+		{
+			"abi" : "mips64",
+			"artifactName" : "native-lib",
+			"buildCommand" : "F:\\environment\\android_sdk_r24.3.4\\cmake\\3.6.3155560\\bin\\cmake.exe --build F:\\myproject\\AnimalAdvertis\\app\\.externalNativeBuild\\cmake\\debug\\mips64 --target native-lib",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  -target mips64el-none-linux-android -gcc-toolchain F:/environment/android_sdk_r24.3.4/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=F:/environment/android_sdk_r24.3.4/ndk-bundle/platforms/android-21/arch-mips64  -Dnative_lib_EXPORTS -isystem F:\\environment\\android_sdk_r24.3.4\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem F:\\environment\\android_sdk_r24.3.4\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips64\\include -isystem F:\\environment\\android_sdk_r24.3.4\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "F:/myproject/AnimalAdvertis/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "F:/myproject/AnimalAdvertis/app/.externalNativeBuild/cmake/debug/mips64"
+				}
+			],
+			"output" : "F:/myproject/AnimalAdvertis/app/.externalNativeBuild/cmake/debug/obj/mips64/libnative-lib.so",
+			"toolchain" : "2515633457"
+		}
+	},
+	"toolchains" : 
+	{
+		"2515633457" : 
+		{
+			"cCompilerExecutable" : "F:/environment/android_sdk_r24.3.4/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "F:/environment/android_sdk_r24.3.4/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

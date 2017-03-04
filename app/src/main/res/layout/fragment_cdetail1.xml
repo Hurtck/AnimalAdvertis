@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayUserPhoto">
+    <animaladvertis.com.animaladvertis.myview.ExtendScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v4.view.ViewPager
+                android:background="@color/grayUserTop"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"
+                android:id="@+id/vp_detail"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+            </android.support.v4.view.ViewPager>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="一家用猪肉做的牛排的牛排店"
+                android:textSize="24sp"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:paddingTop="30dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:id="@+id/tv_moredetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    </animaladvertis.com.animaladvertis.myview.ExtendScrollView>
+</LinearLayout>

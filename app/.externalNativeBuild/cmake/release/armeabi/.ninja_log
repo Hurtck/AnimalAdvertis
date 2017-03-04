@@ -1,0 +1,5 @@
+# ninja log v5
+0	903	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	f8e8a7563e747eae
+903	1290	0	../obj/armeabi/libnative-lib.so	38360f7d0056f082
+1	326	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	f8e8a7563e747eae
+326	627	0	../obj/armeabi/libnative-lib.so	38360f7d0056f082

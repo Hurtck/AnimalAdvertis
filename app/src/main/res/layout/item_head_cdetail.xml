@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/grayUserPhoto"
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/cv_item_cdtail_photo"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/pig"/>
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_item_cdtail_star"
+            style="@style/Widget.AppCompat.RatingBar"
+            android:layout_gravity="center_horizontal"
+            android:clickable="false"
+            android:layout_marginTop="30dp"/>
+</LinearLayout>

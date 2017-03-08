@@ -16,8 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 import animaladvertis.com.animaladvertis.R;
+import animaladvertis.com.animaladvertis.util.LoadImageUtil;
+import cn.bmob.v3.datatype.BmobFile;
 
 import static animaladvertis.com.animaladvertis.R.drawable.rank;
+import static com.baidu.location.h.j.u;
 
 /**
  * Created by 47321 on 2016/12/12 0012.
@@ -63,10 +66,14 @@ public class RankAdapter extends BaseAdapter {
             hodler = (RankHodler)convertView.getTag();
         }
         Map<String,Object> map = mlist.get(position);
-        hodler.ci_photo.setImageResource((int)map.get("rankPhoto"));
-        hodler.pg_progress.setProgress((int)map.get("progress"));
-        hodler.rankScore.setText("Score "+map.get("rankScore"));
-        hodler.rankName.setText((String)map.get("rankName"));
+        BmobFile userSrc = (BmobFile) map.get("rankPhoto");
+        if(map!=null){
+            LoadImageUtil.loadIMage(mContext,hodler.ci_photo,userSrc.getFileUrl(),1);
+            hodler.pg_progress.setProgress((int)map.get("progress"));
+            hodler.rankScore.setText("Score "+map.get("rankScore"));
+            hodler.rankName.setText((String)map.get("rankName"));
+        }
+
         return convertView;
     }
 }

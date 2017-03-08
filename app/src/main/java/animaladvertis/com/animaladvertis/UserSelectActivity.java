@@ -53,6 +53,7 @@ public class UserSelectActivity extends AppCompatActivity {
     private User mUser;
     private String mPath;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

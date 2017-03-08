@@ -22,7 +22,7 @@ public class RecycleItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if(parent.getChildPosition(view) != 0){
-            outRect.top = 1;
+            outRect.top = 3;
         }
     }
 }

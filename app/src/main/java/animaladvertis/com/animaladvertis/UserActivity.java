@@ -34,7 +34,9 @@ import animaladvertis.com.animaladvertis.adapter.RankAdapter;
 import animaladvertis.com.animaladvertis.adapter.UserViewPagerAdpter;
 import animaladvertis.com.animaladvertis.beans.Animal;
 import animaladvertis.com.animaladvertis.beans.AnimalMission;
+import animaladvertis.com.animaladvertis.beans.ApplicationDate;
 import animaladvertis.com.animaladvertis.beans.User;
+import animaladvertis.com.animaladvertis.beans.UserAnimal;
 import animaladvertis.com.animaladvertis.beans.UserMission;
 import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import cn.bmob.v3.Bmob;
@@ -42,6 +44,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -54,7 +57,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private Button bt_mRank, tv_userdate;
     private NestedScrollView nestedScrollView;
     private AppBarLayout appBarLayout;
-    private List<View> listViews;
+    private List<View> listViews = new ArrayList<View>();
     private CircleImageView userPhoto;
     List<Map<String, Object>> list;
     private ViewPager vp_user;
@@ -64,9 +67,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private TextView locattion;
     private TextView level;
     private TextView rank;
-    private List<AnimalMission> animalMissions;
     private List<Animal> animals;
     private List<User> users;
+    private List<Map<String,Object>> missionslistDate = new ArrayList<>();
+    private List<Map<String,Object>> userslistDate = new ArrayList<>();
     String TAG = "UserActivityMsg";
 
     @Override
@@ -100,17 +104,19 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         initUserDate();//初始化用户基本数据
-        //getDate()//获取数据
+        getDate();//获取数据
         setDefautButton();//初始化按键状态
-        intListView();//初始化ViewPager listview数据
 
         // bt_mLook.setBackgroundResource(R.drawable.collec_down);
     }
 
     private void initUserDate() {
         userDate = User.getCurrentUser(User.class);
+        ApplicationDate app = (ApplicationDate)getApplication();
+        app.setUsername(userDate.getUsername());
         BmobQuery<User> query = new BmobQuery<User>();
         query.addWhereEqualTo("username", userDate.getUsername());
+        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_THEN_NETWORK);
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> list, BmobException e) {
@@ -128,32 +134,70 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 }else  Toast.makeText(getApplicationContext(), ""+e.getErrorCode()+e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+        //initTestDate();//初始化测试数据
+
+
+
     }
 
-    private void intListView() {
-        listViews = new ArrayList<View>();
-        LayoutInflater layoutInflater = getLayoutInflater();
-        //设置任务界面列表数据
-        ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_collect, null)).findViewById(R.id.lv_collect);
-        listView.setAdapter(new CollectAdapter(getApplicationContext(), getDate(0)));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void initTestDate() {
+        UserMission usermission =  new UserMission();
+        usermission.setUserName(userDate.getUsername());
+        usermission.setMissionName("basemission");
+        usermission.setProgress(0);
+        usermission.save(new SaveListener<String>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(UserActivity.this, CollectActivity.class);
-                list = getDate(0);
-                Map<String, Object> map = list.get(position);
-                int src = (int) map.get("src");
-                int number = (int) map.get("number");
-                String kind = (String) map.get("kind");
-                intent.putExtra("src", src);
-                intent.putExtra("number", number);
-                intent.putExtra("kind", kind);
-                startActivity(intent);
+            public void done(String s, BmobException e) {
+
             }
         });
+
+        UserAnimal userAnimal = new UserAnimal();
+        userAnimal.setUserName(userDate.getUsername());
+        userAnimal.setAnimalName("雷神");
+        userAnimal.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+
+            }
+        });
+
+        Animal animal = new Animal();
+        animal.setName("雷神");
+        animal.setScore(10);
+        animal.setPicture(userDate.getUserPhoto());
+        animal.setShop(userDate.getUserPhoto());
+        animal.setLocationname("HongKong");
+        animal.setShopName("麻辣烫");
+        animal.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e!=null) Log.d("UserActivitymsg",e.getErrorCode()+e.getMessage());
+            }
+        });
+    }
+
+    private void intListView(int size) {
+        if(missionslistDate.size()==size&&userslistDate.size()==size){
+            LayoutInflater layoutInflater = getLayoutInflater();
+            setMissionsData(layoutInflater);
+            setCollectDate(layoutInflater);
+            setRankDate(layoutInflater);
+            vp_user.setAdapter(new UserViewPagerAdpter(listViews));
+            vp_user.setCurrentItem(1);
+        }
+    }
+
+    private void setRankDate(LayoutInflater layoutInflater) {
+        //设置排名界面列表数据
+        ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_rank, null)).findViewById(R.id.lv_rank);
+        listView.setAdapter(new RankAdapter(getApplicationContext(), userslistDate));
         listViews.add(listView);
+    }
+
+    private void setCollectDate(LayoutInflater layoutInflater) {
         //设置收藏界面列表数据
-        listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_look, null)).findViewById(R.id.lv_look);
+        ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_look, null)).findViewById(R.id.lv_look);
         listView.setAdapter(new LookAdpter(getDate(1), getApplicationContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -163,76 +207,100 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         listViews.add(listView);
-        //设置排名界面列表数据
-        listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_rank, null)).findViewById(R.id.lv_rank);
-        listView.setAdapter(new RankAdapter(getApplicationContext(), getDate(2)));
+    }
+
+    private void setMissionsData(LayoutInflater layoutInflater) {
+        //设置任务界面列表数据
+        ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_collect, null)).findViewById(R.id.lv_collect);
+        listView.setAdapter(new CollectAdapter(getApplicationContext(), missionslistDate));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(UserActivity.this, CollectActivity.class);
+                Map<String, Object> map = missionslistDate.get(position);
+                BmobFile src = (BmobFile) map.get("src");
+                int number = (int) map.get("number");
+                String kind = (String) map.get("kind");
+                intent.putExtra("src", src);
+                intent.putExtra("number", number);
+                intent.putExtra("kind", kind);
+                startActivity(intent);
+            }
+        });
         listViews.add(listView);
-
-        vp_user.setAdapter(new UserViewPagerAdpter(listViews));
-        vp_user.setCurrentItem(1);
-
     }
 
     public void getDate(){
-        /*****************获取第一个列表(animalMission)的数据*****************/
+        /*****************获取第一个列表(missionslistDate)的数据*****************/
         BmobQuery<UserMission> bmobQuery = new BmobQuery<UserMission>();
         bmobQuery.addWhereEqualTo("username",userDate.getUsername());
+        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
         bmobQuery.findObjects(new FindListener<UserMission>() {
             @Override
             public void done(List<UserMission> list, BmobException e) {
-                if(e!=null){
+                if(e==null&&list!=null){
+                    final int size = list.size();
                     for (UserMission missionName : list) {
+                        final Map<String ,Object> map = new HashMap<>();
+                        map.put("number",missionName.getProgress());
+                        Log.d("getMissionMessage",missionName.getMissionName());
                         BmobQuery<AnimalMission> amQuery = new BmobQuery<AnimalMission>();
-                        amQuery.addWhereEqualTo("missionname",missionName.getMissionName());
+                        amQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+                        amQuery.addWhereEqualTo("missonName",missionName.getMissionName());
                         amQuery.findObjects(new FindListener<AnimalMission>() {
                             @Override
                             public void done(List<AnimalMission> list, BmobException e) {
-                                animalMissions.add(list.get(0));
+                                if(e==null){
+                                    if(list.size()!=0) {
+                                        map.put("kind",list.get(0).getName());
+                                        map.put("src",list.get(0).getPicFile());
+                                        missionslistDate.add(map);
+                                        intListView(size);
+                                    }
+                                    else Log.d("getMissionMessage","no date found");
+                                }else{
+                                    Log.d("getMissionMessage","1"+e.getMessage()+e.getErrorCode());
+                                }
                             }
                         });
                     }
                 }else{
-                    Log.d("getMissionMessage",""+e.getMessage()+e.getErrorCode());
+                    Log.d("getMissionMessage","2"+e.getMessage()+e.getErrorCode());
                 }
             }
         });
-        List<Map<String,Object>> listDate = new ArrayList<>();
-        for (AnimalMission am: animalMissions) {
-            Map<String ,Object> map = new HashMap<>();
-            map.put("kind",am.getName());
-            map.put("number",am.getRank());
-            map.put("src",am.getPicFile());
-            listDate.add(map);
-            Log.d("getMissionMessage",""+am.getName());
-        }
         /*************获取第二个列表的数据(animals)**********************/
 
         /*************获取第三个列表的数据(users)**********************/
+        BmobQuery<User> userQuery = new BmobQuery<User>();
+        userQuery.addWhereExists("username").order("-rank").setLimit(10);
+        userQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        userQuery.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if(e==null){
+                    if(list!=null) {
+                        final int size = list.size();
+                        for(User user:list){
+                            Log.d("getMissionMessage","1"+user.getRank());
+                            Map<String ,Object> map = new HashMap<>();
+                            map.put("rankName",user.getUsername());
+                            map.put("rankScore",user.getRank());
+                            map.put("rankPhoto",user.getUserPhoto());
+                            map.put("progress",user.getLevel());
+                            userslistDate.add(map);
+                            intListView(size);
+                        }
+                    }else Log.d("getMissionMessage","1");
+                }else{
+                    Log.d("getMissionMessage","1"+e.getMessage()+e.getErrorCode());
+                }
+            }
+        });
     }
 
     public List<Map<String, Object>> getDate(int index) {
         List<Map<String, Object>> list = new ArrayList<>();
-        if (index == 0) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("kind", "电影达人");
-            map.put("number", 40);
-            map.put("src", R.drawable.collectmovie);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("kind", "旅游先锋");
-            map.put("number", 20);
-            map.put("src", R.drawable.collecttravel);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("kind", "超级吃货");
-            map.put("number", 80);
-            map.put("src", R.drawable.collectfood);
-            list.add(map);
-
-            return list;
-        }
         if (index == 1) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("img", R.drawable.rabbit);
@@ -247,56 +315,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             list.add(map);
 
         }
-        if (index == 2) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("rankName", "F");
-            map.put("rankScore", "12");
-            map.put("rankPhoto", R.drawable.resfo);
-            map.put("progress", 15);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("rankName", "G");
-            map.put("rankScore", "12");
-            map.put("rankPhoto", R.drawable.gf);
-            map.put("progress", 15);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("rankName", "H");
-            map.put("rankScore", "56");
-            map.put("rankPhoto", R.drawable.userphoto);
-            map.put("progress", 56);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("rankName", "W");
-            map.put("rankScore", "12");
-            map.put("rankPhoto", R.drawable.ff);
-            map.put("progress", 15);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("rankName", "FR");
-            map.put("rankScore", "12");
-            map.put("rankPhoto", R.drawable.ff);
-            map.put("progress", 15);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("rankName", "FC");
-            map.put("rankScore", "12");
-            map.put("rankPhoto", R.drawable.ff);
-            map.put("progress", 15);
-            list.add(map);
-
-            map = new HashMap<>();
-            map.put("rankName", "FB");
-            map.put("rankScore", "12");
-            map.put("rankPhoto", R.drawable.ff);
-            map.put("progress", 15);
-            list.add(map);
-        }
         return list;
     }
 
@@ -305,7 +323,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         bt_mLook.setBackgroundResource(R.drawable.collec);
         bt_mRank.setBackgroundResource(R.drawable.rank);
     }
-
 
     @Override
     public void onClick(View v) {

@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 import animaladvertis.com.animaladvertis.R;
+import animaladvertis.com.animaladvertis.util.LoadImageUtil;
+import cn.bmob.v3.datatype.BmobFile;
 
 import static android.content.ContentValues.TAG;
 
@@ -98,10 +100,10 @@ public class CollectAdapter extends BaseAdapter {
         Map<String,Object> map = mList.get(position);
         String kind = (String) map.get("kind");
         int progress =(int) map.get("number");
-        int src = (int)map.get("src");
+        BmobFile src = (BmobFile) map.get("src");
         hodler.tv_kind.setText(kind);
         hodler.pg_progress.setProgress(progress);
-        loadBitmap(src,hodler.im_imag);
+        LoadImageUtil.loadIMage(mContext,hodler.im_imag,src.getFileUrl(),1);
         return convertView;
     }
     class BitmapWorkerTask extends AsyncTask<Integer,Void,Bitmap>{

@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@color/grayUserTop">
+        android:background="@color/title"
+        android:paddingRight="10dp">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="33dp"
@@ -24,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="电影达人"
                 android:textAllCaps="true"
                 android:textStyle="normal|bold"
                 android:textSize="24sp"
@@ -46,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
-
 
 
 </RelativeLayout>

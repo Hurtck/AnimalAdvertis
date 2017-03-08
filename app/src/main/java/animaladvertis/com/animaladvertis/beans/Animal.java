@@ -10,85 +10,34 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class Animal extends BmobObject{
     private String name;//传单名字
-    private String score;//传单积分
-    private String cLocation;//传单位置
+    private int score;//传单积分
+    private String lon,lat;//传单位置
     private String description;//传单描述
-    private String homeLocation;//商家位置
+    private String hlon,hlat;//商家位置
     private String kind;//传单种类
     private String sell;//传单折扣
-    private String title;//传单标题
-    private BmobFile picture;
-    private String userName;//传单所属商家
-    private int picSrc;
+    private BmobFile picture;//传单图片
+    private BmobFile shop;//商家标题
 
-    public int getPicSrc() {
-        return picSrc;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setPicSrc(int picSrc) {
-        this.picSrc = picSrc;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public BmobFile getPicture() {
-        return picture;
+    private String shopName;//商家名称
+
+    public String getLocationname() {
+        return Locationname;
     }
 
-    public void setPicture(BmobFile picture) {
-        this.picture = picture;
+    public void setLocationname(String locationname) {
+        Locationname = locationname;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSell() {
-        return sell;
-    }
-
-    public void setSell(String sell) {
-        this.sell = sell;
-    }
-
-
-    public  Animal(){
-
-        name = "";
-        score = "";
-        cLocation = "";
-        description = "";
-        homeLocation = "";
-        kind = "";
-        sell = "";
-        title = "";
-        picture = null;
-        userName = "";
-    }
-
-    public Animal(String name,String title,String score,String kind,
-                  String cLocation,String description,String homeLocation,
-                  String sell,BmobFile picture,String userName){
-        this.name = name;
-        this.title = title;
-        this.score = score;
-        this.kind = kind;
-        this.cLocation = cLocation;
-        this.description = description;
-        this.homeLocation = homeLocation;
-        this.sell =sell;
-        this.userName = userName;
-    }
+    private String Locationname;//位置名称
 
     public String getName() {
         return name;
@@ -98,20 +47,28 @@ public class Animal extends BmobObject{
         this.name = name;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
-    public String getcLocation() {
-        return cLocation;
+    public String getLon() {
+        return lon;
     }
 
-    public void setcLocation(String cLocation) {
-        this.cLocation = cLocation;
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
     public String getDescription() {
@@ -122,12 +79,20 @@ public class Animal extends BmobObject{
         this.description = description;
     }
 
-    public String getHomeLocation() {
-        return homeLocation;
+    public String getHlon() {
+        return hlon;
     }
 
-    public void setHomeLocation(String homeLocation) {
-        this.homeLocation = homeLocation;
+    public void setHlon(String hlon) {
+        this.hlon = hlon;
+    }
+
+    public String getHlat() {
+        return hlat;
+    }
+
+    public void setHlat(String hlat) {
+        this.hlat = hlat;
     }
 
     public String getKind() {
@@ -138,6 +103,27 @@ public class Animal extends BmobObject{
         this.kind = kind;
     }
 
+    public String getSell() {
+        return sell;
+    }
 
+    public void setSell(String sell) {
+        this.sell = sell;
+    }
 
+    public BmobFile getPicture() {
+        return picture;
+    }
+
+    public void setPicture(BmobFile picture) {
+        this.picture = picture;
+    }
+
+    public BmobFile getShop() {
+        return shop;
+    }
+
+    public void setShop(BmobFile shop) {
+        this.shop = shop;
+    }
 }

@@ -42,6 +42,7 @@ public class RadarView extends View {
     int moutWidth;//外圆高度
     int mCy,mCx;//中心点
     int mInsideRadius,mOutsideRadius;//内外圆半径
+    private RadarListener mRadarListener;
 
     public RadarView(Context context, AttributeSet attribuset,int defStyleAttr){
         super(context,attribuset,defStyleAttr);
@@ -66,7 +67,6 @@ public class RadarView extends View {
         mPointCount = 3;
         mPointArray = new ArrayList<String>();
         mContext = context;
-        mDefaultPointBmp = Bitmap.createBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.radar_default_point_ico));
         mLightPointBmp = Bitmap.createBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.radar_light_point_ico));
     }
 
@@ -164,6 +164,12 @@ public class RadarView extends View {
             canvas.drawBitmap(mScanBmp, mCx - mScanBmp.getWidth() / 2, mCy
                     - mScanBmp.getHeight() / 2, null);// 绘制Bitmap扫描图片效果
             mOffsetArgs += 3;
+            Log.d("RadarViewmsg1",""+mOffsetArgs);
+            if(mOffsetArgs>=720&&mRadarListener!=null){
+                mOffsetArgs = 0;
+                Log.d("RadarViewmsg2",""+mOffsetArgs);
+                mRadarListener.onChangeListener();
+            }
         } else {
             canvas.drawBitmap(mScanBmp, mCx - mScanBmp.getWidth() / 2, mCy
                     - mScanBmp.getHeight() / 2, null);
@@ -182,11 +188,7 @@ public class RadarView extends View {
                 String[] result = mPointArray.get(i).split("/");
 
                 // 开始绘制动态点
-                if (i < mPointArray.size() - 1)
-                    canvas.drawBitmap(mDefaultPointBmp,
-                            Integer.parseInt(result[0]),
-                            Integer.parseInt(result[1]), null);
-                else
+                if (i < mPointArray.size())
                     canvas.drawBitmap(mLightPointBmp,
                             Integer.parseInt(result[0]),
                             Integer.parseInt(result[1]), null);
@@ -196,6 +198,11 @@ public class RadarView extends View {
         if (isSearching)
             this.invalidate();
     }
+
+    public void setSearchingListener(RadarListener radarListener){
+        mRadarListener = radarListener;
+    }
+
     /**
      * TODO<设置扫描状态>
      *
@@ -204,6 +211,10 @@ public class RadarView extends View {
     public void setSearching(boolean status) {
         this.isSearching = status;
         this.invalidate();
+    }
+
+    public boolean isSearching(){
+        return this.isSearching;
     }
 
     /**

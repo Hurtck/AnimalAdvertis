@@ -8,6 +8,9 @@ import android.widget.TextView;
 import com.john.waveview.WaveView;
 
 import animaladvertis.com.animaladvertis.R;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.R.attr.id;
 
 /**
  * Created by 47321 on 2016/12/13 0013.
@@ -21,6 +24,26 @@ public class CollecdesHodler extends RecyclerView.ViewHolder{
     private TextView tv_title;
     private TextView tv_gotohome;
     private WaveView waveView;
+    private CircleImageView shop;
+
+    public TextView getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(TextView shopName) {
+        this.shopName = shopName;
+    }
+
+    public CircleImageView getShop() {
+        return shop;
+    }
+
+    public void setShop(CircleImageView shop) {
+        this.shop = shop;
+    }
+
+    private TextView shopName;
+
 
     public TextView getTv_title() {
         return tv_title;
@@ -48,6 +71,8 @@ public class CollecdesHodler extends RecyclerView.ViewHolder{
             tv_position = (TextView) itemView.findViewById(R.id.tv_item_collecdes_time);
             tv_title = (TextView) itemView.findViewById(R.id.tv_item_collectdes_title);
             tv_gotohome = (TextView) itemView.findViewById(R.id.tv_gotohome);
+            shop = (CircleImageView) itemView.findViewById(R.id.cv_item_collecdes_imag);
+            shopName = (TextView) itemView.findViewById(R.id.tv_item_collecdes_shopname);
         }
         if(type==0){
             this.type=0;

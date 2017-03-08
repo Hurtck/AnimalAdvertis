@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -69,20 +70,27 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             if("user".equals(s)){
-                user.setPassword(user.getPwd());
-                user.login(new SaveListener<User>() {
-                    @Override
-                    public void done(User user, BmobException e) {
-                        if (e==null) {
-                            Intent intent = new Intent(SplashActivity.this,UserActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Log.d("AUOIJJD",e.getErrorCode()+e.getMessage()+user.getPwd());
-                            Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-                            startActivity(intent);
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                if(connectivityManager.getActiveNetworkInfo()!=null){
+                    user.setPassword(user.getPwd());
+                    user.login(new SaveListener<User>() {
+                        @Override
+                        public void done(User user, BmobException e) {
+                            if (e==null) {
+                                Intent intent = new Intent(SplashActivity.this,UserActivity.class);
+                                startActivity(intent);
+                            }else{
+                                Log.d("AUOIJJD",e.getErrorCode()+e.getMessage()+user.getPwd());
+                                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    Intent intent = new Intent(SplashActivity.this,UserActivity.class);
+                    startActivity(intent);
+                }
+
             }
             finish();
         }

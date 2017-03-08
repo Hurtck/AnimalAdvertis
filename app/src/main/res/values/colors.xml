@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="grayUserTop">#2d3134</color>
     <color name="grayUserPhoto">#3a3f43</color>
+    <color name="title">#B13A3F43</color>
     <color name="lineFirst">#a43131</color>
     <color name="lineSecend">#25ac5d</color>
     <color name="lineLast">#2a7fb8</color>

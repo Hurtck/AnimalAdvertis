@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.baidu.platform.comapi.map.D;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.john.waveview.WaveView;
 
 import java.io.InputStream;
@@ -27,6 +30,12 @@ import java.util.Map;
 
 import animaladvertis.com.animaladvertis.R;
 import animaladvertis.com.animaladvertis.beans.Animal;
+import animaladvertis.com.animaladvertis.util.LoadImageUtil;
+import cn.bmob.v3.datatype.BmobFile;
+
+import static android.R.attr.resource;
+import static com.baidu.location.h.a.h;
+import static com.baidu.location.h.j.am;
 
 /**
  * Created by 47321 on 2016/12/13 0013.
@@ -39,9 +48,8 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
     private static final int TYPE_EVA = 2;
     private static final int TYPE_TITLE = 3;
 
-    private int mProgress,mSrc;
-
-    private LruCache<String,Bitmap> mMemoryCache;
+    private int mProgress;
+    private BmobFile mSrc;
     private List<Map<String,Object>> mList;
     private List<Animal> mAnimals;
     private OnItemClickListener mOnItemClickListener;
@@ -51,18 +59,9 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
         void onItemClick(View view,int position);
     }
 
-    public CollecRecycleViewAdapter(List<Animal> animals,int progress,int src){
-        if(animals==null){
+    public CollecRecycleViewAdapter(List<Animal> animals,int progress,BmobFile src){
 
-        }
         int maxMemory = (int)(Runtime.getRuntime().maxMemory()/1024);
-        int cacheSize = maxMemory/8;
-        mMemoryCache = new LruCache<String,Bitmap>(cacheSize){
-            @Override
-            protected int sizeOf(String key, Bitmap value) {
-                return value.getByteCount()/1024;
-            }
-        };
 
         mProgress = progress;
         mSrc = src;
@@ -87,7 +86,6 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
         map.put("time","2016-9-46");
         map.put("content","想去看电影");
         mList.add(map);
-
     }
 
     @Override
@@ -126,32 +124,41 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
 
     @Override
     public void onBindViewHolder(final CollecdesHodler holder, final int position) {
-        Log.d("T","Title"+holder.getType());
+        Log.d("TTitle","Title"+holder.getType());
         if(holder.getType()==TYPE_HEAD){
-            Log.d("T","head");
+            Log.d("TTitle","head");
             holder.getWaveView().setProgress(mProgress);
-           /* InputStream is = mContext.getResources().openRawResource(mSrc);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inPurgeable = true;
-            options.inInputShareable = true;
-            options.inSampleSize = 2;
-            Bitmap btp = BitmapFactory.decodeStream(is,null,options);*/
-            loadBitmap(mSrc,holder.getWaveView());
-            //holder.getWaveView().setBackgroundResource(mSrc);
+            Glide.with(mContext).load(mSrc.getUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    holder.getWaveView().setBackground(new BitmapDrawable(resource));
+                }
+
+                @Override
+                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                    super.onLoadFailed(e, errorDrawable);
+                    holder.getWaveView().setBackground(errorDrawable);
+                }
+            });
         }
         if(holder.getType()==TYPE_NORMAL){
             int mposition = position-1;
-            int nSrc = mAnimals.get(mposition).getPicSrc();
+            Animal animal = mAnimals.get(mposition);
+            LoadImageUtil.loadIMage(mContext,holder.getIv_image(),animal.getPicture().getFileUrl(),1,0.2f);
 
-            holder.getIv_image().setImageResource(nSrc);
+            Long str = System.currentTimeMillis();
+            Log.d("Currenttime4",""+str);
 
-            String location = mAnimals.get(mposition).getHomeLocation();
-            String sell = mAnimals.get(mposition).getSell();
-            String titel = mAnimals.get(mposition).getTitle();
+            String location = animal.getLocationname();
+            int score = animal.getScore();
+            String name = animal.getName();
+            String shopName = animal.getShopName();
             holder.getTv_position().setText(location);
-            holder.getTv_sell().setText(sell);
-            holder.getTv_title().setText(titel);
+            holder.getTv_sell().setText("积分 "+score);
+            holder.getTv_title().setText(name);
+            BmobFile nSrc = animal.getShop();
+            LoadImageUtil.loadIMage(mContext,holder.getShop(),nSrc.getFileUrl(),1,0.2f);
+            holder.getShopName().setText(shopName);
             holder.getTv_gotohome().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -217,51 +224,6 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
         this.mOnItemClickListener = mOnItemClickListener;
-    }
-
-    public void addBitmapToMemoryCache(String key, Bitmap bitmap){
-        if(mMemoryCache.get(key)==null){
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    public void loadBitmap(int resID,WaveView wave){
-        final String imageKey = String.valueOf(resID);
-        final Bitmap bitmap = mMemoryCache.get(imageKey);
-        if(bitmap!=null){
-            wave.setBackground(new BitmapDrawable(bitmap));
-        }else{
-            wave.setBackground(new BitmapDrawable());
-            BitmapWorkerTask task = new BitmapWorkerTask();
-            task.execute(resID);
-        }
-    }
-
-    public void loadBitmapimg(int resID,ImageView img){
-        final String imageKey = String.valueOf(resID);
-        final Bitmap bitmap = mMemoryCache.get(imageKey);
-        if(bitmap!=null){
-            img.setImageBitmap(bitmap);
-        }else{
-            img.setImageBitmap(bitmap);
-            BitmapWorkerTask task = new BitmapWorkerTask();
-            task.execute(resID);
-        }
-    }
-
-    class BitmapWorkerTask extends AsyncTask<Integer,Void,Bitmap> {
-        @Override
-        protected Bitmap doInBackground(Integer... params) {
-            InputStream is = mContext.getResources().openRawResource(params[0]);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inPurgeable = true;
-            options.inInputShareable = true;
-            options.inSampleSize = 1;
-            final Bitmap bitmap = BitmapFactory.decodeStream(is,null,options);
-            addBitmapToMemoryCache(String.valueOf(params[0]),bitmap);
-            return bitmap;
-        }
     }
 
 }

@@ -14,6 +14,16 @@ public class UserMission extends BmobObject{
 
     private String userName;
 
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    private int progress;
+
     public String getMissionName() {
         return missionName;
     }

@@ -3,16 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:padding="10dp"
+    android:background="@drawable/merchant_shape"
     android:layout_height="wrap_content">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="180dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_item_pictrue"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/animalshape"
             android:src="@drawable/tupian"/>
 
         <TextView
@@ -46,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sissi "
+                android:id="@+id/tv_item_collecdes_shopname"
                 android:textColor="@android:color/background_light"/>
         </LinearLayout>
 
@@ -60,7 +67,7 @@
             android:id="@+id/ll_des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark"
+            android:background="@color/grayUserPhoto"
             android:layout_alignParentTop="true"
             android:orientation="horizontal">
             <TextView
@@ -70,7 +77,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="14sp"
                 android:textColor="@android:color/background_light"
                 android:textStyle="normal|bold" />
             <TextView
@@ -83,21 +90,22 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:text="稀有"
+                android:text="loc"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="14sp"
                 android:textColor="@android:color/background_light" />
         </LinearLayout>
         <TextView
+            android:layout_marginTop="1dp"
             android:id="@+id/tv_gotohome"
             android:layout_below="@id/ll_des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:background="@color/lineSecend"
+            android:background="@color/grayUserPhoto"
             android:text="查看位置"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
 </LinearLayout>

@@ -27,3 +27,5 @@
 157	345	0	../obj/armeabi/libnative-lib.so	69b0e3bc03648f72
 2	608	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	283a2b4feaedb6b3
 608	1902	0	../obj/armeabi/libnative-lib.so	69b0e3bc03648f72
+0	299	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	283a2b4feaedb6b3
+299	658	0	../obj/armeabi/libnative-lib.so	69b0e3bc03648f72

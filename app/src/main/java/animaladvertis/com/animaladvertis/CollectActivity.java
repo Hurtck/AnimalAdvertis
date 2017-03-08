@@ -1,6 +1,8 @@
 package animaladvertis.com.animaladvertis;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,30 +11,47 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.BaseTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import animaladvertis.com.animaladvertis.adapter.CollecRecycleViewAdapter;
-import animaladvertis.com.animaladvertis.adapter.CollecdesHodler;
-import animaladvertis.com.animaladvertis.adapter.EvaluationAdapter;
 import animaladvertis.com.animaladvertis.adapter.RecycleItemDecoration;
 import animaladvertis.com.animaladvertis.beans.Animal;
+import animaladvertis.com.animaladvertis.beans.ApplicationDate;
+import animaladvertis.com.animaladvertis.beans.UserAnimal;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+
+import static animaladvertis.com.animaladvertis.R.id.map;
+import static com.baidu.location.h.j.l;
+import static java.lang.System.currentTimeMillis;
 
 public class CollectActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private List<Animal> animals;
+    private List<Animal> animals = new ArrayList<>();
     private CollecRecycleViewAdapter mAdapter;
     private ImageView iv_back;
     private ImageView iv_list;
     private TextView title;
-    int progress,src;
+    private int progress;
+    private BmobFile src;
+    private String TAG = "CollectActivitymsg";
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +60,14 @@ public class CollectActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_collect);
         iv_back = (ImageView) findViewById(R.id.iv_collect_back);
-        iv_list = (ImageView) findViewById(R.id.iv_collect_list);
+        iv_list = (ImageView) findViewById(R.id.iv_collect_list);//更多选项
         title = (TextView) findViewById(R.id.collect_title);
 
 
         Bundle bundle = getIntent().getExtras();
         String kind = (String) bundle.get("kind");
         progress = (int) bundle.get("number");
-        src = (int) bundle.get("src");
+        src = (BmobFile) bundle.get("src");
         title.setText(kind);
 
 
@@ -59,44 +78,54 @@ public class CollectActivity extends AppCompatActivity {
             }
         });
 
-        animals = new ArrayList<>();
-        addDate();
-        initRecyclView();
+        getDate();
+        //initRecyclView();
     }
 
 
     private void initRecyclView(){
-
         recyclerView.setHasFixedSize(true);
         initRecyclerLayoutManager();
         initRecyclerAdapter(); // 初始化Adapter
         initItemDecoration(); // 初始化边界装饰
         initItemAnimator(); // 初始化动画效果
-
     }
 
-
-    private void addDate(){
-        Animal animal = new Animal();
-        animal.setSell("10积分");
-        animal.setHomeLocation("南昌");
-        animal.setTitle("雷神");
-        animal.setPicSrc(R.drawable.move);
-        animals.add(animal);
-
-        animal = new Animal();
-        animal.setSell("121积分");
-        animal.setHomeLocation("上海");
-        animal.setTitle("RESDGNT");
-        animal.setPicSrc(R.drawable.move2);
-        animals.add(animal);
-
-        animal = new Animal();
-        animal.setSell("15积分");
-        animal.setHomeLocation("上海");
-        animal.setTitle("天地英雄");
-        animal.setPicSrc(R.drawable.move3);
-        animals.add(animal);
+    private void getDate(){
+        Long str = System.currentTimeMillis();
+        Log.d("Currenttime1",""+str);
+        final BmobQuery<UserAnimal> query = new BmobQuery<UserAnimal>();
+        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        ApplicationDate app = (ApplicationDate)getApplication();
+        query.addWhereEqualTo("userName",app.getUsername());
+        query.findObjects(new FindListener<UserAnimal>() {
+            @Override
+            public void done(List<UserAnimal> list, BmobException e) {
+                if(e!=null) Log.d(TAG,""+e.getMessage()+e.getErrorCode());
+                else if(list.size()==0) Log.d(TAG,"no date found");
+                else{
+                    for(UserAnimal userAnimal: list){
+                        final int size = list.size();
+                        BmobQuery<Animal> amQuery = new BmobQuery<Animal>();
+                        amQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+                        Log.d(TAG,userAnimal.getAnimalName());
+                        amQuery.addWhereEqualTo("name",userAnimal.getAnimalName());
+                        amQuery.findObjects(new FindListener<Animal>() {
+                            @Override
+                            public void done(final List<Animal> list, BmobException e) {
+                                if(e!=null) Log.d(TAG,""+e.getMessage()+e.getErrorCode());
+                                else if(list.size()==0) Log.d(TAG,"no date found+1");
+                                else{
+                                    animals.add(list.get(0));
+                                    if(animals.size()==size)
+                                    initRecyclView();
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     private void initRecyclerAdapter() {
@@ -115,7 +144,6 @@ public class CollectActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if(view.getId()==R.id.iv_item_pictrue){//开启传单详情界面
-                    Log.d("LOOK","1234567889wioerigj"+position);
                     Intent intent = new Intent(getApplicationContext(),CollectdetailActivity.class);
                     startActivity(intent);
                 }
@@ -123,10 +151,7 @@ public class CollectActivity extends AppCompatActivity {
         });
     }
     private void initItemDecoration(){
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
         recyclerView.addItemDecoration(new RecycleItemDecoration(40));
-
     }
     private void initItemAnimator(){
     }

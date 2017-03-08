@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_regist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grayUserTop"
     tools:context="animaladvertis.com.animaladvertis.RegistActivity">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
         <TextView
             android:id="@+id/tva"
             android:visibility="invisible"
@@ -82,5 +85,39 @@
         android:layout_marginEnd="51dp">
 
     </com.mingle.widget.LoadingView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/default_activity_button_image"
+        android:src="@drawable/defaultuser"
+        app:civ_border_color="@color/littleGravy"
+        app:civ_border_width="4dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="10dp"
+        android:background="@color/title"
+        android:paddingRight="10dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="33dp"
+            android:id="@+id/iv_collect_back"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back" />
+        <TextView
+            android:id="@+id/collect_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="注册页面"
+            android:textAllCaps="true"
+            android:textStyle="normal"
+            android:textSize="24sp"
+            android:textColor="@color/dialog_bg" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

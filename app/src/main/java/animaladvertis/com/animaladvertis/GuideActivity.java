@@ -152,10 +152,8 @@ public class GuideActivity extends AppCompatActivity{
                     Log.d("getLatitude",latitude+"|"+longitude);
                     adress = bdLocation.getAddrStr();
                     currentLocation = new LatLng(latitude,longitude);
-
                     setMyPosition(bdLocation);
                     setAnimalPosition();
-
                     /*BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.weizhi);
                     mBaidumap.setMyLocationEnabled(true);
                     MyLocationConfiguration myLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS,true,icon);

@@ -64,7 +64,7 @@ public class RadarView extends View {
     private void init(Context context){
         mPaint = new Paint();
         isSearching = false;
-        mPointCount = 3;
+        mPointCount = 0;
         mPointArray = new ArrayList<String>();
         mContext = context;
         mLightPointBmp = Bitmap.createBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.radar_light_point_ico));

@@ -1,6 +1,8 @@
 package animaladvertis.com.animaladvertis.beans;
 
 
+import java.lang.annotation.Target;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -18,6 +20,16 @@ public class Animal extends BmobObject{
     private String sell;//传单折扣
     private BmobFile picture;//传单图片
     private BmobFile shop;//商家标题
+
+    public String getTargetLocation() {
+        return targetLocation;
+    }
+
+    public void setTargetLocation(String targetLocation) {
+        this.targetLocation = targetLocation;
+    }
+
+    private String targetLocation;
 
     public String getShopName() {
         return shopName;

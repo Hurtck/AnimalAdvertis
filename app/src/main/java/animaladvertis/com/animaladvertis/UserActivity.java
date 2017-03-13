@@ -106,8 +106,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         initUserDate();//初始化用户基本数据
         getDate();//获取数据
         setDefautButton();//初始化按键状态
-
-        // bt_mLook.setBackgroundResource(R.drawable.collec_down);
+        //initTestDate();//初始化测试数据
     }
 
     private void initUserDate() {
@@ -134,7 +133,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 }else  Toast.makeText(getApplicationContext(), ""+e.getErrorCode()+e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-        //initTestDate();//初始化测试数据
+
 
 
 
@@ -167,14 +166,17 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         animal.setScore(10);
         animal.setPicture(userDate.getUserPhoto());
         animal.setShop(userDate.getUserPhoto());
-        animal.setLocationname("HongKong");
+        animal.setLocationname("南昌市南昌县红谷滩");
         animal.setShopName("麻辣烫");
+        animal.setTargetLocation("中国江西省南昌市南昌县");
         animal.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
                 if(e!=null) Log.d("UserActivitymsg",e.getErrorCode()+e.getMessage());
             }
         });
+
+
     }
 
     private void intListView(int size) {

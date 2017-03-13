@@ -27,3 +27,5 @@
 880	2127	0	../obj/arm64-v8a/libnative-lib.so	63c646d7c770c864
 0	660	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	212f4c0530607dfc
 660	1745	0	../obj/arm64-v8a/libnative-lib.so	cc9bd6f14337b2d9
+2	943	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	212f4c0530607dfc
+943	1605	0	../obj/arm64-v8a/libnative-lib.so	cc9bd6f14337b2d9

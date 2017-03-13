@@ -9,6 +9,8 @@ import cn.bmob.v3.BmobObject;
 public class UserAnimal extends BmobObject {
     String userName;
 
+
+
     public String getUserName() {
         return userName;
     }

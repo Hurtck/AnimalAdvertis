@@ -1,5 +1,6 @@
 package animaladvertis.com.animaladvertis;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -47,6 +48,10 @@ import java.util.List;
 import java.util.Random;
 
 import animaladvertis.com.animaladvertis.beans.AnimalOnMap;
+import animaladvertis.com.animaladvertis.beans.Merchant;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 import static com.baidu.location.h.j.ab;
 
@@ -61,10 +66,10 @@ public class GuideActivity extends AppCompatActivity{
     private BaiduMap mBaidumap;
     private List<AnimalOnMap> animas;
     private LinearLayout ll;
+    private List<Merchant> merchants = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        map.setCustomMapStylePath("/mnt/shell/emulated/0/custom_config_black");
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_guide);
@@ -90,18 +95,22 @@ public class GuideActivity extends AppCompatActivity{
                 return true;
             }
         });
-        mBaidumap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                ll.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public boolean onMapPoiClick(MapPoi mapPoi) {
-                return false;
-            }
-        });
-
+        Intent intent = getIntent();
+        String add = intent.getStringExtra("adress");
+        String addDate[] = add.split("|");
+        for(int i=0;i<addDate.length;i++){
+            BmobQuery<Merchant> query= new BmobQuery<>();
+            query.addWhereEqualTo("name",addDate[i]);
+            query.findObjects(new FindListener<Merchant>() {
+                @Override
+                public void done(List<Merchant> list, BmobException e) {
+                    if(e==null){
+                        Merchant merchant = list.get(0);
+                        merchants.add(merchant);
+                    }
+                }
+            });
+        }
     }
 
     private void setAnimalPosition() {
@@ -125,10 +134,11 @@ public class GuideActivity extends AppCompatActivity{
 
     private void setAnimalInfo() {
         animas = new ArrayList<AnimalOnMap>();
-        Double lat = currentLocation.latitude+0.001;
-        Double lon = currentLocation.longitude;
-        animas.add(new AnimalOnMap(lat,lon,"thor",R.drawable.move,"出现概率高"));
-        animas.add(new AnimalOnMap(lat-0.002,lon,"thor1",R.drawable.move2,"出现概率一般"));
+        for (Merchant mc:merchants) {
+            Double lat = mc.getLat();
+            Double lon = mc.getLon();
+            animas.add(new AnimalOnMap(lat,lon,mc.getName(),R.drawable.move,"出现概率高"));
+        }
     }
 
     private void getCurrentPosition() {

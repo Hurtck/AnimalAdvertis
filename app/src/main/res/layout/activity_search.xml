@@ -50,7 +50,7 @@
             android:background="@color/grayUserPhoto"
             android:text="打开地图开始捕捉"
             android:textColor="@color/littleGravy"
-            android:id="@+id/br_search_map"/>
+            android:id="@+id/bt_search_map"/>
     </LinearLayout>
     <ImageView
         android:layout_width="30dp"

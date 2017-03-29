@@ -69,6 +69,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private TextView rank;
     private List<Animal> animals;
     private List<User> users;
+    private TextView merchantRigest;
     private List<Map<String,Object>> missionslistDate = new ArrayList<>();
     private List<Map<String,Object>> userslistDate = new ArrayList<>();
     String TAG = "UserActivityMsg";
@@ -89,6 +90,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         vp_user = (ViewPager) findViewById(R.id.vp_user);
         fb_catch = (CircleImageView) findViewById(R.id.fb_chatch);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        merchantRigest = (TextView) findViewById(R.id.tv_registToMerchant);
 
         bt_mCollect.setOnClickListener(this);
         bt_mLook.setOnClickListener(this);
@@ -97,6 +99,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         fb_catch.setOnClickListener(this);
         tv_userdate.setOnClickListener(this);
         userPhoto.setOnClickListener(this);
+        merchantRigest.setOnClickListener(this);
 
         init();
         // Example of a call to a native method
@@ -106,7 +109,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         initUserDate();//初始化用户基本数据
         getDate();//获取数据
         setDefautButton();//初始化按键状态
-        //initTestDate();//初始化测试数据
+        initTestDate();//初始化测试数据
     }
 
     private void initUserDate() {
@@ -134,9 +137,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
-
-
     }
 
     private void initTestDate() {
@@ -161,15 +161,15 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        Animal animal = new Animal();
-        animal.setName("雷神");
-        animal.setScore(10);
-        animal.setPicture(userDate.getUserPhoto());
-        animal.setShop(userDate.getUserPhoto());
-        animal.setLocationname("南昌市南昌县红谷滩");
-        animal.setShopName("麻辣烫");
-        animal.setTargetLocation("中国江西省南昌市南昌县");
-        animal.save(new SaveListener<String>() {
+        Animal animal1 = new Animal();
+        animal1.setName("哈哈");
+        animal1.setScore(10);
+        animal1.setPicture(userDate.getUserPhoto());
+        animal1.setShop(userDate.getUserPhoto());
+        animal1.setLocationname("南昌市南昌县红谷滩");
+        animal1.setShopName("串串香");
+        animal1.setTargetLocation("中国江西省南昌市青山湖区");
+        animal1.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
                 if(e!=null) Log.d("UserActivitymsg",e.getErrorCode()+e.getMessage());
@@ -355,6 +355,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 1);
+        }
+        if(v.getId() == R.id.tv_registToMerchant){
+            Intent intent = new Intent(UserActivity.this,MerchantRegistActivity.class);
+            startActivity(intent);
         }
     }
 

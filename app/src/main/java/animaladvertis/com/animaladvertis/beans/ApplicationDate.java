@@ -2,6 +2,8 @@ package animaladvertis.com.animaladvertis.beans;
 
 import android.app.Application;
 
+import com.baidu.mapapi.model.LatLng;
+
 /**
  * Created by 47321 on 2017/3/6 0006.
  */
@@ -15,6 +17,5 @@ public class ApplicationDate extends Application {
         this.username = username;
     }
 
-    private String username ;
-
+    private String username;
 }

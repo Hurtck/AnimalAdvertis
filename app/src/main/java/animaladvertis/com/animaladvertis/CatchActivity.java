@@ -2,12 +2,10 @@ package animaladvertis.com.animaladvertis;
 
 import android.content.Context;
 import android.hardware.Camera;
-import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
@@ -15,14 +13,16 @@ import android.view.WindowManager;
 
 import java.io.IOException;
 
-import animaladvertis.com.animaladvertis.callback.SurfaceCallback;
+import animaladvertis.com.animaladvertis.myview.MyGLSurfaceView;
+import animaladvertis.com.animaladvertis.util.MyRenderer;
 
-import static android.R.attr.rotation;
 
 public class CatchActivity extends AppCompatActivity implements SurfaceHolder.Callback{
 
     private SurfaceView sf_look;
     private Camera camera;
+    private MyGLSurfaceView glSurfaceView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +33,15 @@ public class CatchActivity extends AppCompatActivity implements SurfaceHolder.Ca
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//设置高亮
         sf_look = (SurfaceView) findViewById(R.id.sf_look);
+        glSurfaceView = (MyGLSurfaceView) findViewById(R.id.sf_target);
+
         sf_look.getHolder().addCallback(this);
+        glSurfaceView.setRenderer(new MyRenderer());
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try{
-
             camera = Camera.open();
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);//得到窗口管理器
             Display display = wm.getDefaultDisplay();//得到当前屏幕

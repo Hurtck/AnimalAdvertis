@@ -1,9 +1,6 @@
 package animaladvertis.com.animaladvertis;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +19,6 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapPoi;
-import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
@@ -31,21 +26,13 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.PolygonOptions;
 import com.baidu.mapapi.map.TextureMapView;
 
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import animaladvertis.com.animaladvertis.beans.AnimalOnMap;
 import animaladvertis.com.animaladvertis.beans.Merchant;
@@ -53,15 +40,13 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-import static com.baidu.location.h.j.ab;
-
 
 public class GuideActivity extends AppCompatActivity{
 
     private TextureMapView map;
     private PoiSearch poiSearch;
     private LatLng currentLocation;
-    private LocationClient locationClient;
+    private LocationClient locationClient1;
     private String adress;
     private BaiduMap mBaidumap;
     private List<AnimalOnMap> animas;
@@ -107,6 +92,8 @@ public class GuideActivity extends AppCompatActivity{
                     if(e==null){
                         Merchant merchant = list.get(0);
                         merchants.add(merchant);
+                        Log.d("guideactivity","lat: "+merchant.getLat()
+                        +"lon: "+merchant.getLon());
                     }
                 }
             });
@@ -142,16 +129,17 @@ public class GuideActivity extends AppCompatActivity{
     }
 
     private void getCurrentPosition() {
-        locationClient = new LocationClient(getApplicationContext());
+        locationClient1 = new LocationClient(getApplicationContext());
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setCoorType("bd0911");
-        option.setOpenGps(true);
+        option.setOpenGps(false);
         option.setScanSpan(5000);
         option.setNeedDeviceDirect(true);
+        option.setIsNeedAddress(true);
         mBaidumap.setMapStatus(MapStatusUpdateFactory.zoomTo(20));
-        locationClient.setLocOption(option);
-        locationClient.registerLocationListener(new BDLocationListener() {
+        locationClient1.setLocOption(option);
+        locationClient1.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
                 if(bdLocation==null){
@@ -171,14 +159,13 @@ public class GuideActivity extends AppCompatActivity{
 
                     MapStatusUpdate mapUpdate = MapStatusUpdateFactory.newLatLng(currentLocation);
                     mBaidumap.setMapStatus(mapUpdate);
-                    if(locationClient.isStarted()){
-                        locationClient.stop();
+                    if(locationClient1.isStarted()){
+                        locationClient1.stop();
                     }
                 }
-
             }
         });
-        locationClient.start();
+        locationClient1.start();
     }
 
     private void setMyPosition(BDLocation bdLocation) {
@@ -198,7 +185,6 @@ public class GuideActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         map.onDestroy();
-
     }
 
     @Override

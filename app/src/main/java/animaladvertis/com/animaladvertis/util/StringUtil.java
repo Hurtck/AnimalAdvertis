@@ -34,14 +34,12 @@ public class StringUtil {
         StringBuilder sb = new StringBuilder();
         int i = 0;
         int j = 0;
-        Log.d("SeachActivitymsg",date1.length()+" "+date2.length());
         while (j <(date1.length()-date2.length())&&i<date2.length()) {
             if (date1.charAt(j) == date2.charAt(i)) i++;
             else i =0;
             j++;
         }
-
-        if(j>=date1.length()-date2.length()) return null;
+        if(j>date1.length()-date2.length()) return null;
         else {
             for(int k=0;k<j;k++){
                 sb.append(date1.charAt(k));

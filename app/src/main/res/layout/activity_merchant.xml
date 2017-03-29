@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_merchant"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayUserTop"
+    tools:context="animaladvertis.com.animaladvertis.MerchantActivity">
+
+
+
+
+    <Button
+        android:id="@+id/bt_regist"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/bt_regist"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+        <TextView
+            android:id="@+id/tva"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*必填"
+            android:textColor="@color/lineFirst" />
+        <EditText
+            android:id="@+id/et_regist_userName"
+            android:layout_width="250dp"
+            android:hint="请输入商户名"
+            android:text="hurtck"
+            android:textColorHint="@color/littleGravy"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textColor="?attr/colorButtonNormal" />
+        <TextView
+            android:id="@+id/tvb"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*必填"
+            android:textColor="@color/lineFirst" />
+
+        <EditText
+            android:id="@+id/et_regist_pwd"
+            android:layout_marginBottom="30dp"
+            android:layout_width="250dp"
+            android:hint="请输入手机号码"
+            android:text="hurtck"
+            android:textColorHint="@color/littleGravy"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorButtonNormal" />
+        <TextView
+            android:id="@+id/tvc"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*必填"
+            android:textColor="@color/lineFirst" />
+        <EditText
+            android:id="@+id/et_regist_email"
+            android:layout_marginBottom="30dp"
+            android:layout_width="250dp"
+            android:hint="请输入邮箱"
+            android:text="13047909670@163.com"
+            android:textColorHint="@color/littleGravy"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorButtonNormal" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/default_activity_button_image"
+            android:src="@drawable/defaultuser"
+            app:civ_border_color="@color/littleGravy"
+            app:civ_border_width="4dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="当前定位：中国江西省南昌市青山湖区"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:layout_below="@id/default_activity_button_image"
+            />
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="10dp"
+        android:background="@color/title"
+        android:paddingRight="10dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="33dp"
+            android:id="@+id/iv_collect_back"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back" />
+        <TextView
+            android:id="@+id/collect_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="注册页面"
+            android:textAllCaps="true"
+            android:textStyle="normal"
+            android:textSize="24sp"
+            android:textColor="@color/dialog_bg" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

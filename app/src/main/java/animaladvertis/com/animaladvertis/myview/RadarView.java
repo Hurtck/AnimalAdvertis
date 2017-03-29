@@ -73,13 +73,11 @@ public class RadarView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction()==MotionEvent.ACTION_DOWN) {
-            Log.d("TAG","anananan");
             isSearching=true;
         }
         if(event.getAction()==MotionEvent.ACTION_UP) {
             isSearching=false;
             mOffsetArgs = 0;
-            Log.d("TAG","upupup");
         }
         this.invalidate();
         return true;
@@ -164,11 +162,8 @@ public class RadarView extends View {
             canvas.drawBitmap(mScanBmp, mCx - mScanBmp.getWidth() / 2, mCy
                     - mScanBmp.getHeight() / 2, null);// 绘制Bitmap扫描图片效果
             mOffsetArgs += 3;
-            Log.d("RadarViewmsg1",""+mOffsetArgs);
-            if(mOffsetArgs>=720&&mRadarListener!=null){
+            if(mOffsetArgs>=180&&mRadarListener!=null){
                 mOffsetArgs = 0;
-                Log.d("RadarViewmsg2",""+mOffsetArgs);
-                mRadarListener.onChangeListener();
             }
         } else {
             canvas.drawBitmap(mScanBmp, mCx - mScanBmp.getWidth() / 2, mCy

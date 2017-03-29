@@ -8,6 +8,35 @@ import cn.bmob.v3.BmobObject;
 
 public class Merchant extends BmobObject {
     private String name;
+    private Boolean isIdentifild;
+    private String email;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String phone;
+
+    public Boolean getIdentifild() {
+        return isIdentifild;
+    }
+
+    public void setIdentifild(Boolean identifild) {
+        isIdentifild = identifild;
+    }
+
     private double lat,lon;
 
     public String getName() {

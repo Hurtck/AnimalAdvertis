@@ -1,6 +1,10 @@
 package animaladvertis.com.animaladvertis;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +18,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.bumptech.glide.Glide;
+
+import java.io.File;
 
 import animaladvertis.com.animaladvertis.beans.Merchant;
 import animaladvertis.com.animaladvertis.beans.User;
@@ -26,6 +31,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cn.bmob.v3.BmobUser.getCurrentUser;
@@ -61,6 +67,8 @@ public class MerchantRegistActivity extends AppCompatActivity {
 
     private double lat, lon;
     private String adress;
+    private String mPath;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,38 +77,12 @@ public class MerchantRegistActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         User user = BmobUser.getCurrentUser(User.class);
-        LoadImageUtil.loadIMage(getApplicationContext(),defaultActivityButtonImage,user.getUserPhoto().getFileUrl(),1);
+        LoadImageUtil.loadIMage(getApplicationContext(), defaultActivityButtonImage, user.getUserPhoto().getFileUrl(), 1);
         btRegist.setClickable(false);
         btRegist.setText("请等待定位成功");
         getLocation();
     }
 
-    @OnClick(R.id.bt_regist)
-    public void onClick() {
-        String name, phoneNum, email;
-        if ((name = etRegistUserName.getText().toString().trim()) != null) {
-            tva.setVisibility(View.VISIBLE);
-        } else if ((phoneNum = etRegistPwd.getText().toString().trim()) != null) {
-            tvb.setVisibility(View.VISIBLE);
-        } else if ((email = etRegistEmail.getText().toString().trim()) != null) {
-            tvc.setVisibility(View.VISIBLE);
-        } else {
-            Merchant merchant = new Merchant();
-            merchant.setName(name);
-            merchant.setPhone(phoneNum);
-            merchant.setEmail(email);
-            merchant.setLocation(adress);
-            merchant.setLat(lat);
-            merchant.setLon(lon);
-            merchant.setIdentifild(false);
-            merchant.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-
-                }
-            });
-        }
-    }
 
     private void getLocation() {
         LocationClient locationClient = new LocationClient(getApplicationContext());
@@ -118,12 +100,66 @@ public class MerchantRegistActivity extends AppCompatActivity {
                 if (bdLocation != null) {
                     lat = bdLocation.getLatitude();
                     lon = bdLocation.getLongitude();
-                    tvLoc.setText("当前定位："+bdLocation.getAddrStr());
+                    tvLoc.setText("当前定位：" + bdLocation.getAddrStr());
                     btRegist.setText("注册");
                     btRegist.setClickable(true);
                 }
             }
         });
         locationClient.start();
+    }
+
+    @OnClick({R.id.bt_regist, R.id.default_activity_button_image})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_regist:
+                String name, phoneNum, email;
+                if ((name = etRegistUserName.getText().toString().trim()) != null) {
+                    tva.setVisibility(View.VISIBLE);
+                } else if ((phoneNum = etRegistPwd.getText().toString().trim()) != null) {
+                    tvb.setVisibility(View.VISIBLE);
+                } else if ((email = etRegistEmail.getText().toString().trim()) != null) {
+                    tvc.setVisibility(View.VISIBLE);
+                } else {
+                    BmobFile merchantFile = new BmobFile(new File(mPath));
+                    Merchant merchant = new Merchant();
+                    merchant.setMerChantPhoto(merchantFile);
+                    merchant.setName(name);
+                    merchant.setPhone(phoneNum);
+                    merchant.setEmail(email);
+                    merchant.setLocation(adress);
+                    merchant.setLat(lat);
+                    merchant.setLon(lon);
+                    merchant.setIdentifild(false);
+                    merchant.setObjectId(User.getCurrentUser(User.class).getObjectId());
+                    getCurrentUser(User.class).setType("merchant");
+                    merchant.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+
+                        }
+                    });
+
+                }
+                break;
+            case R.id.default_activity_button_image:
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 1);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
+            Uri uri = data.getData();
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(uri, filePathColumns, null, null, null);
+            cursor.moveToFirst();
+            mPath = cursor.getString(cursor.getColumnIndex(filePathColumns[0]));
+            cursor.close();
+        }
     }
 }

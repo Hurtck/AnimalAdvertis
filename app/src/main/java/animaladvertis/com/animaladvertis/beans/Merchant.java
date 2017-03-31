@@ -1,6 +1,7 @@
 package animaladvertis.com.animaladvertis.beans;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by 47321 on 2017/3/13 0013.
@@ -10,8 +11,18 @@ public class Merchant extends BmobObject {
     private String name;
     private Boolean isIdentifild;
     private String email;
+    private BmobFile merChantPhoto;
+
+    public BmobFile getMerChantPhoto() {
+        return merChantPhoto;
+    }
+
+    public void setMerChantPhoto(BmobFile merChantPhoto) {
+        this.merChantPhoto = merChantPhoto;
+    }
 
     public String getPhone() {
+
         return phone;
     }
 

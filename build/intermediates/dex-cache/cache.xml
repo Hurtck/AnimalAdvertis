@@ -39,6 +39,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.github.lecho\hellocharts-library\1.5.8\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="56c6a22c42588628903e9dda5d8f3aa1c1b4372f">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\com.github.lecho-hellocharts-library-1.5.8_7aef1d416f1b56f33ce76a5abc9599b6790f46a1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"

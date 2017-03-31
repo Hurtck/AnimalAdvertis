@@ -55,6 +55,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private Button bt_mCollect;
     private Button bt_mLook;
     private Button bt_mRank, tv_userdate;
+    private Button bt_merchant;
     private NestedScrollView nestedScrollView;
     private AppBarLayout appBarLayout;
     private List<View> listViews = new ArrayList<View>();
@@ -83,6 +84,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         bt_mLook = (Button) findViewById(R.id.bt_catch);
         bt_mRank = (Button) findViewById(R.id.bt_rank);
         tv_userdate = (Button) findViewById(R.id.tv_userDate);
+        bt_merchant = (Button) findViewById(R.id.bt_merchant);
         userPhoto = (CircleImageView) findViewById(R.id.profile_image);
         userName = (TextView) findViewById(R.id.tv_username);
         level = (TextView) findViewById(R.id.tv_level);
@@ -95,6 +97,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         bt_mCollect.setOnClickListener(this);
         bt_mLook.setOnClickListener(this);
         bt_mRank.setOnClickListener(this);
+        bt_merchant.setOnClickListener(this);
         vp_user.setOnPageChangeListener(this);
         fb_catch.setOnClickListener(this);
         tv_userdate.setOnClickListener(this);
@@ -109,7 +112,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         initUserDate();//初始化用户基本数据
         getDate();//获取数据
         setDefautButton();//初始化按键状态
-        initTestDate();//初始化测试数据
+        //initTestDate();//初始化测试数据
     }
 
     private void initUserDate() {
@@ -360,6 +363,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(UserActivity.this,MerchantRegistActivity.class);
             startActivity(intent);
         }
+        if(v.getId()==R.id.bt_merchant){
+            Intent intent = new Intent(UserActivity.this,MerchantActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -373,32 +380,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             cursor.moveToFirst();
             String mPath = cursor.getString(cursor.getColumnIndex(filePathColumns[0]));
             cursor.close();
-
-          /* 缩放图片的逻辑（最后产生的Flie有问题）
-           BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inJustDecodeBounds = true;
-            int BIL = (int) (opts.outHeight / (float) 200);
-            if (BIL < 1) BIL = 1;
-            opts.inSampleSize = BIL;
-            opts.inDensity = DisplayMetrics.DENSITY_LOW;
-            opts.inPreferredConfig = Bitmap.Config.RGB_565;
-            opts.inJustDecodeBounds = false;
-            File file = null;
-            try {
-                Bitmap newPhoto = BitmapFactory.decodeFileDescriptor(new FileInputStream(mPath).getFD(), null, opts);
-                File appDir = new File(Environment.getExternalStorageDirectory(), "userPhoto");
-                if (!appDir.exists()) {
-                    appDir.mkdir();
-                }
-                String fileName = "userPhoto.jpg";
-                file = new File(appDir, fileName);
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                newPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-                fileOutputStream.flush();
-                fileOutputStream.close();
-            } catch (Exception e) {
-
-            }*/
 
             final BmobFile userPhotoF = new BmobFile(new File(mPath));
             userPhotoF.uploadblock(new UploadFileListener() {

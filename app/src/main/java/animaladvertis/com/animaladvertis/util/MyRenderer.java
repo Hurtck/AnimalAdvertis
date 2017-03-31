@@ -1,5 +1,6 @@
 package animaladvertis.com.animaladvertis.util;
 
+import android.graphics.Matrix;
 import android.opengl.GLSurfaceView;
 
 import java.nio.ByteBuffer;
@@ -62,6 +63,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             1, 2, 6,
             1, 5, 6
     };
+
 //	float[] triangleData = new float[]{
 //			.1f, .6f, .0f,  //上顶点
 //			-.3f, .0f, .0f, //左顶点
@@ -114,7 +116,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
 
 
-    public float rotate;
+    public float rotate=0.0f;
+    public float xTranslate=0.0f;
+    public float yTranslate=0.0f;
 
 
     public MyRenderer() {
@@ -136,26 +140,16 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
         //设置当前矩阵堆栈为模型堆栈
         gl.glMatrixMode(GL10.GL_MODELVIEW);
-
         //---------------------绘制第一个3d图形-----------------------
         gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.0f, -1.5f);
         //gl.glTranslatef(-0.6f, 0.0f, -1.5f);
-       // gl.glRotatef(rotate, 0f, 100.0f, 0f);
-        gl.glTranslatef(rotate,0.0f,0.0f);
+        gl.glRotatef(rotate, 0f, 100.0f, 0f);
+        gl.glTranslatef(xTranslate,yTranslate,0.0f);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, taperVerticesBuffer);
         //设置顶点的颜色数据
         gl.glColorPointer(4, GL10.GL_FIXED, 0, taperColorsBuffer);
         gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, taperFacetsBuffer.remaining(), GL10.GL_UNSIGNED_BYTE, taperFacetsBuffer);
-
-        //---------------------绘制第二个3d图形-----------------------
-        //gl.glLoadIdentity();
-       // gl.glTranslatef(0.7f, 0.0f, -2.2f);
-        //gl.glRotatef(rotate, 0f, 0.2f, 0f);
-        //gl.glRotatef(rotate, 1f, 0f, 0f);
-
-        //gl.glVertexPointer(3, GL10.GL_FLOAT, 0, cubeVerticesBuffer);
-        //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, cubeFacetsBuffer.remaining(), GL10.GL_UNSIGNED_BYTE, cubeFacetsBuffer);
         gl.glFinish();
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
     }
@@ -173,10 +167,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         gl.glViewport(0,0,width,height);
+        float ratio = (float)width/height;
         gl.glMatrixMode(GL10.GL_PROJECTION);
         gl.glLoadIdentity();
-        float ratio = (float)width/height;
-
         gl.glFrustumf(-ratio,ratio,-1,1,1,10);
     }
 

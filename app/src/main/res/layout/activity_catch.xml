@@ -9,6 +9,11 @@
         android:id="@+id/sf_look"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <!--<animaladvertis.com.animaladvertis.myview.MyGLSurfaceView
+        android:id="@+id/sf_target"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,31 +28,29 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/merchant_shape">
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="name"
             android:layout_gravity="center_vertical"
-            android:textSize="24sp"
+            android:textSize="10sp"
             android:lineSpacingExtra="10sp"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light" />
         <TextView
+            android:id="@+id/tv_level"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="level"
-            android:textSize="24sp"
+            android:textSize="10sp"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light" />
     </LinearLayout>
-    <animaladvertis.com.animaladvertis.myview.MyGLSurfaceView
-        android:id="@+id/sf_target"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 
 

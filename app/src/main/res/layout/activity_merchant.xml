@@ -8,133 +8,140 @@
     android:background="@color/grayUserTop"
     tools:context="animaladvertis.com.animaladvertis.MerchantActivity">
 
-
-
-
-    <Button
-        android:id="@+id/bt_regist"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="下一步"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_above="@id/bt_regist"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
-        <TextView
-            android:id="@+id/tva"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*必填"
-            android:textColor="@color/lineFirst" />
-        <EditText
-            android:id="@+id/et_regist_userName"
-            android:layout_width="250dp"
-            android:hint="请输入商户名"
-            android:text="hurtck"
-            android:textColorHint="@color/littleGravy"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:textColor="?attr/colorButtonNormal" />
-        <TextView
-            android:id="@+id/tvb"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*必填"
-            android:textColor="@color/lineFirst" />
-
-        <EditText
-            android:id="@+id/et_regist_pwd"
-            android:layout_marginBottom="30dp"
-            android:layout_width="250dp"
-            android:hint="请输入手机号码"
-            android:text="hurtck"
-            android:textColorHint="@color/littleGravy"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorButtonNormal" />
-        <TextView
-            android:id="@+id/tvc"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*必填"
-            android:textColor="@color/lineFirst" />
-        <EditText
-            android:id="@+id/et_regist_email"
-            android:layout_marginBottom="30dp"
-            android:layout_width="250dp"
-            android:hint="请输入邮箱"
-            android:text="13047909670@163.com"
-            android:textColorHint="@color/littleGravy"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorButtonNormal" />
-    </LinearLayout>
-
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/sv_mainContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:id="@+id/ll_mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grayUserTop"
+            android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/default_activity_button_image"
-            android:src="@drawable/defaultuser"
-            app:civ_border_color="@color/littleGravy"
-            app:civ_border_width="4dp"
-            android:layout_centerHorizontal="true" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/userbac">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="当前定位：中国江西省南昌市青山湖区"
-            android:textSize="15sp"
-            android:textColor="@android:color/white"
-            android:padding="10dp"
-            android:layout_below="@id/default_activity_button_image"
-            />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/defaultuser"
+                    app:civ_border_color="@color/littleGravy"
+                    app:civ_border_width="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_registToMerchant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:padding="3dp"
+                    android:text="注册成为商家>>"
+                    android:textColor="@color/littleGravy"
+                    android:textStyle="bold"
+                    android:background="@color/alpheDark"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/grayUserPhoto">
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="24sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_username"
+                    android:layout_marginLeft="20dp"
+                    android:text="南昌"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/tv_userDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/layout_selector"
+                    android:padding="2dp"
+                    android:text="发布传单"
+                    android:textColor="@color/littleGravy" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/grayUserPhoto"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_animalState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="宣传数据"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/grayUserTop" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="50dp">
 
 
-
-    </RelativeLayout>
-
-
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingLeft="10dp"
-        android:background="@color/title"
-        android:paddingRight="10dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="33dp"
-            android:id="@+id/iv_collect_back"
-            android:layout_centerVertical="true"
-            android:background="@drawable/back" />
-        <TextView
-            android:id="@+id/collect_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="注册页面"
-            android:textAllCaps="true"
-            android:textStyle="normal"
-            android:textSize="24sp"
-            android:textColor="@color/dialog_bg" />
-
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="用户评价"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

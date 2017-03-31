@@ -2,6 +2,10 @@ package animaladvertis.com.animaladvertis;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +14,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.List;
 
 import animaladvertis.com.animaladvertis.myview.MyGLSurfaceView;
 import animaladvertis.com.animaladvertis.util.MyRenderer;
@@ -21,22 +27,35 @@ public class CatchActivity extends AppCompatActivity implements SurfaceHolder.Ca
 
     private SurfaceView sf_look;
     private Camera camera;
-    private MyGLSurfaceView glSurfaceView;
+    //private MyGLSurfaceView glSurfaceView;
+
+    private TextView tvName;
+    private TextView tvLevel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_catch);
+        //glSurfaceView = (MyGLSurfaceView) findViewById(R.id.sf_target);
+        sf_look = (SurfaceView) findViewById(R.id.sf_look);
+        tvLevel = (TextView) findViewById(R.id.tv_name);
+        tvName = (TextView) findViewById(R.id.tv_level);
+
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//设置高亮
-        sf_look = (SurfaceView) findViewById(R.id.sf_look);
-        glSurfaceView = (MyGLSurfaceView) findViewById(R.id.sf_target);
 
         sf_look.getHolder().addCallback(this);
-        glSurfaceView.setRenderer(new MyRenderer());
+        //glSurfaceView.setRenderer(new MyRenderer());
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -67,4 +86,5 @@ public class CatchActivity extends AppCompatActivity implements SurfaceHolder.Ca
         camera.stopPreview();
         camera.release();
     }
+
 }

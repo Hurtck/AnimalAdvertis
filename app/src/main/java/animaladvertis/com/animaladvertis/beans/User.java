@@ -21,6 +21,14 @@ public class User extends BmobUser {
     private BmobFile userPhoto;
     private int rank;
     private int level;
+    private String merchantID;
+    public String getMerchantID() {
+        return merchantID;
+    }
+
+    public void setMerchantID(String merchantID) {
+        this.merchantID = merchantID;
+    }
 
     public String getPwd() {
         return pwd;

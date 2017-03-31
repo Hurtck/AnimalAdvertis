@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/grayUserTop"
     tools:context="animaladvertis.com.animaladvertis.CollectActivity">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_centerInParent="true"
+        android:text="数据加载中....."/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -45,6 +50,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayUserPhoto"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="1dp"
+            android:text="发表评价"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 
 </RelativeLayout>

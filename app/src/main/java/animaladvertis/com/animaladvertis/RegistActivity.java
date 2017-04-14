@@ -117,24 +117,25 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
             tvb.setVisibility(View.VISIBLE);
         }else if(email==null||"".equals(email)){
             tvc.setVisibility(View.VISIBLE);
-        }else if(userPhotoF==null){
-            Toast.makeText(getApplicationContext(),"请选择用户头像",Toast.LENGTH_LONG).show();
         }else{
             tva.setVisibility(View.INVISIBLE);
             tvb.setVisibility(View.INVISIBLE);
             tvc.setVisibility(View.INVISIBLE);
             loading.setVisibility(View.VISIBLE);
-            userPhotoF.uploadblock(new UploadFileListener() {
-                @Override
-                public void done(BmobException e) {
-                    if(e==null) loginProgress(userName, pwd, email);;
-                }
-            });
+            if(userPhotoF!=null){
+                userPhotoF.uploadblock(new UploadFileListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if(e==null) loginProgress(userName, pwd, email);
+                        else Toast.makeText(getApplicationContext(),"get:"+e.getMessage(),Toast.LENGTH_SHORT);
+                    }
+                });
+            }
+
         }
     }
 
     private void loginProgress(String userName, String pwd, String email) {
-        user.setDefault(true);//设置用户状态为默认
         user.setUsername(userName);//设置用户名
         user.setPassword(pwd);//设置用户密码
         user.setPwd(pwd);
@@ -143,10 +144,15 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
         user.setType("normal");//设置用户类型
         user.setRank(1);
         user.setLevel(1);
+        user.setMerChantPhoto(null);
+        user.setIdentifild(false);
+        user.setLat(0.0);
+        user.setLon(0.0);
+        user.setLocation("");
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(final User user, BmobException e) {
-                if(user!=null){
+                if(e==null){
                     Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegistActivity.this,UserActivity.class);
                     startActivity(intent);

@@ -87,7 +87,6 @@ public class UserSelectActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK&&requestCode==1&&data!=null){
 
-
         }
     }
 

@@ -9,10 +9,16 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class UserMission extends BmobObject{
 
-    public UserMission(){
-    }
 
     private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public int getProgress() {
         return progress;
@@ -22,8 +28,6 @@ public class UserMission extends BmobObject{
         this.progress = progress;
     }
 
-    private int progress;
-
     public String getMissionName() {
         return missionName;
     }
@@ -32,13 +36,7 @@ public class UserMission extends BmobObject{
         this.missionName = missionName;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private int progress;
 
     private String missionName;
 }

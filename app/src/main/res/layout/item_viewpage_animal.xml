@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/radius_bg"
+        android:layout_centerInParent="true"
+        android:padding="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:id="@+id/iv_src"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:background="@drawable/a3"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/grayUserPhoto">
+            <com.daimajia.numberprogressbar.NumberProgressBar
+                android:id="@+id/npb_star"
+                android:layout_width="256dp"
+                android:layout_height="32dp" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:background="@color/grayUserTop"
+            android:layout_height="2dp" />
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:padding="20dp"
+            android:background="@color/grayUserPhoto"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="32dp"
+                android:layout_gravity="center_vertical"
+                android:text="score"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:foregroundGravity="center"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/littleGravy"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_gravity="center"
+                android:layout_height="40dp"
+                android:background="@color/grayUserTop"/>
+
+            <TextView
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:id="@+id/tv_name"
+                android:layout_gravity="center_vertical"
+                android:text="name"
+                android:layout_weight="1"
+                android:layout_width="32dp"
+                android:textColor="@color/littleGravy"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_gravity="center"
+                android:layout_height="40dp"
+                android:background="@color/grayUserTop"/>
+            <TextView
+                android:gravity="center"
+                android:foregroundGravity="center"
+                android:id="@+id/tv_price"
+                android:layout_weight="1"
+                android:textColor="@color/littleGravy"
+                android:text="price"
+                android:layout_gravity="center_vertical"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:background="@color/grayUserTop"
+            android:layout_height="2dp" />
+        <RelativeLayout
+            android:id="@+id/rl_animalList"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:padding="20dp"
+            android:background="@color/grayUserPhoto"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/bt_addDetail"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:textColor="@color/littleGravy"
+                android:text="add"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
+                android:foregroundGravity="center"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

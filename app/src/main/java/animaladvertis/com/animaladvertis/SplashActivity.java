@@ -14,17 +14,13 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import animaladvertis.com.animaladvertis.beans.ApplicationDate;
 import animaladvertis.com.animaladvertis.beans.User;
+
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
-import static android.R.attr.tag;
-import static android.R.string.yes;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -35,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Bmob.initialize(this,"65749386b1ac27ecde1a176282d5f49b ");
+        Bmob.initialize(this,"65749386b1ac27ecde1a176282d5f49b");
         new FetchDataTask().execute();
     }
     class FetchDataTask extends AsyncTask<String,Void,String> {

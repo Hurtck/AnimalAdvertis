@@ -150,9 +150,9 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
             Log.d("Currenttime4",""+str);
 
             String location = animal.getLocationname();
-            int score = animal.getScore();
+            String score = animal.getScore();
             String name = animal.getName();
-            String shopName = animal.getShopName();
+            String shopName = animal.getMerchantName();
             holder.getTv_position().setText(location);
             holder.getTv_sell().setText("积分 "+score);
             holder.getTv_title().setText(name);

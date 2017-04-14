@@ -69,7 +69,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if(v.getId()==R.id.bt_search_map){
             StringBuilder sb = new StringBuilder();
             for(Animal am:animals){
-                String merchantName = am.getShopName();
+                String merchantName = am.getMerchantName();
                 sb.append(merchantName);
                 sb.append("|");
             }

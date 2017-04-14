@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -31,10 +32,12 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cn.bmob.v3.BmobUser.getCurrentUser;
+import static com.baidu.location.h.j.u;
 
 public class MerchantRegistActivity extends AppCompatActivity {
 
@@ -100,6 +103,7 @@ public class MerchantRegistActivity extends AppCompatActivity {
                 if (bdLocation != null) {
                     lat = bdLocation.getLatitude();
                     lon = bdLocation.getLongitude();
+                    adress = bdLocation.getAddrStr();
                     tvLoc.setText("当前定位：" + bdLocation.getAddrStr());
                     btRegist.setText("注册");
                     btRegist.setClickable(true);
@@ -113,33 +117,41 @@ public class MerchantRegistActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_regist:
-                String name, phoneNum, email;
-                if ((name = etRegistUserName.getText().toString().trim()) != null) {
+                final String name, phoneNum, email;
+                if ((name = etRegistUserName.getText().toString().trim()) == null) {
                     tva.setVisibility(View.VISIBLE);
-                } else if ((phoneNum = etRegistPwd.getText().toString().trim()) != null) {
+                } else if ((phoneNum = etRegistPwd.getText().toString().trim()) == null) {
                     tvb.setVisibility(View.VISIBLE);
-                } else if ((email = etRegistEmail.getText().toString().trim()) != null) {
-                    tvc.setVisibility(View.VISIBLE);
                 } else {
-                    BmobFile merchantFile = new BmobFile(new File(mPath));
-                    Merchant merchant = new Merchant();
-                    merchant.setMerChantPhoto(merchantFile);
-                    merchant.setName(name);
-                    merchant.setPhone(phoneNum);
-                    merchant.setEmail(email);
-                    merchant.setLocation(adress);
-                    merchant.setLat(lat);
-                    merchant.setLon(lon);
-                    merchant.setIdentifild(false);
-                    merchant.setObjectId(User.getCurrentUser(User.class).getObjectId());
-                    getCurrentUser(User.class).setType("merchant");
-                    merchant.save(new SaveListener<String>() {
-                        @Override
-                        public void done(String s, BmobException e) {
 
+                    final BmobFile merchantFile = new BmobFile(new File(mPath));
+                    merchantFile.uploadblock(new UploadFileListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                User user = getCurrentUser(User.class);
+                                user.setIdentifild(false);
+                                user.setMerChantPhoto(merchantFile);
+                                user.setLon(lon);
+                                user.setLat(lat);
+                                user.setMerChantName(name);
+                                user.setMobilePhoneNumber(phoneNum);
+                                user.setLocation(adress);
+                                user.setType("merchant");
+                                user.update(getCurrentUser().getObjectId(),new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null) {
+                                            Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(MerchantRegistActivity.this,MerchantActivity.class));
+                                            finish();
+                                        }
+                                        else Toast.makeText(getApplicationContext(),"注册失败"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
                         }
                     });
-
                 }
                 break;
             case R.id.default_activity_button_image:
@@ -162,4 +174,5 @@ public class MerchantRegistActivity extends AppCompatActivity {
             cursor.close();
         }
     }
+
 }

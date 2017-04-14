@@ -72,7 +72,6 @@ public class CollectdetailActivity extends AppCompatActivity {
             }
         });
         setDefaultFragment();
-
     }
 
 

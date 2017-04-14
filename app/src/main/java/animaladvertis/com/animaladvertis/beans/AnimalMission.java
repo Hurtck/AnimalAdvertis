@@ -14,8 +14,25 @@ import static android.R.attr.name;
 public class AnimalMission extends BmobObject{
     private String missonName;//任务名称
     private int rank;//任务分数
-    private String adNameTable;//任务动物集合
     private String name;
+    private boolean type;
+    private String price;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public boolean isType() {
+        return type;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;
@@ -41,14 +58,6 @@ public class AnimalMission extends BmobObject{
         this.rank = rank;
     }
 
-    public String getAdNameTable() {
-        return adNameTable;
-    }
-
-    public void setAdNameTable(String adNameTable) {
-        this.adNameTable = adNameTable;
-    }
-
     public BmobFile getPicFile() {
         return picFile;
     }
@@ -57,14 +66,5 @@ public class AnimalMission extends BmobObject{
         this.picFile = picFile;
     }
 
-    public String getEvatille() {
-        return evatille;
-    }
-
-    public void setEvatille(String evatille) {
-        this.evatille = evatille;
-    }
-
     private BmobFile picFile;//任务背景图
-    private String evatille;//任务评价
 }

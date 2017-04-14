@@ -11,15 +11,43 @@ import cn.bmob.v3.datatype.BmobFile;
  */
 
 public class Animal extends BmobObject{
+    public String getMissionName() {
+        return missionName;
+    }
+
+    public void setMissionName(String missionName) {
+        this.missionName = missionName;
+    }
+
     private String name;//传单名字
-    private int score;//传单积分
-    private String lon,lat;//传单位置
+    private String score;//传单积分
     private String description;//传单描述
-    private String hlon,hlat;//商家位置
     private String kind;//传单种类
     private String sell;//传单折扣
     private BmobFile picture;//传单图片
     private BmobFile shop;//商家标题
+    private BmobFile dataSrc;
+
+    public BmobFile getDataSrc() {
+        return dataSrc;
+    }
+
+    public void setDataSrc(BmobFile dataSrc) {
+        this.dataSrc = dataSrc;
+    }
+
+    private String missionName;//所属任务
+    private String merchantName;//所属商家
+    private String targetLocation;
+    private String Locationname;
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
 
     public String getTargetLocation() {
         return targetLocation;
@@ -29,17 +57,9 @@ public class Animal extends BmobObject{
         this.targetLocation = targetLocation;
     }
 
-    private String targetLocation;
 
-    public String getShopName() {
-        return shopName;
-    }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
 
-    private String shopName;//商家名称
 
     public String getLocationname() {
         return Locationname;
@@ -49,7 +69,7 @@ public class Animal extends BmobObject{
         Locationname = locationname;
     }
 
-    private String Locationname;//位置名称
+
 
     public String getName() {
         return name;
@@ -59,29 +79,14 @@ public class Animal extends BmobObject{
         this.name = name;
     }
 
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
 
-    public String getLon() {
-        return lon;
-    }
-
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
 
     public String getDescription() {
         return description;
@@ -89,22 +94,6 @@ public class Animal extends BmobObject{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getHlon() {
-        return hlon;
-    }
-
-    public void setHlon(String hlon) {
-        this.hlon = hlon;
-    }
-
-    public String getHlat() {
-        return hlat;
-    }
-
-    public void setHlat(String hlat) {
-        this.hlat = hlat;
     }
 
     public String getKind() {

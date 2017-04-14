@@ -66,23 +66,18 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void done(User o, BmobException e) {
                             if(o!=null){
-                                if("normal".equals(o.getType())){
-                                    Intent intent = new Intent(LoginActivity.this,UserActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                if("other".equals(o.getType())){
-                                    //TODO 开启商家界面
-                                }
+                                Intent intent = new Intent(LoginActivity.this,UserActivity.class);
+                                startActivity(intent);
+                                finish();
                             }else{
                                 if(e.getErrorCode()==101){
                                     Toast.makeText(getApplicationContext(),"用户名或密码错误",Toast.LENGTH_SHORT).show();
                                 }else {
                                     Toast.makeText(getApplicationContext(),"其他错误"+e.getErrorCode(),Toast.LENGTH_SHORT).show();
                                 }
-                                loadind.setVisibility(View.INVISIBLE);
-                                bt_login.setClickable(true);
                             }
+                            bt_login.setClickable(true);
+                            loadind.setVisibility(View.INVISIBLE);
                         }
                     });
                 }

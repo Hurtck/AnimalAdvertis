@@ -1,5 +1,6 @@
 package animaladvertis.com.animaladvertis;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -20,10 +21,14 @@ import java.util.List;
 import animaladvertis.com.animaladvertis.beans.Animal;
 import animaladvertis.com.animaladvertis.beans.Merchant;
 import animaladvertis.com.animaladvertis.beans.User;
+import animaladvertis.com.animaladvertis.callback.OnAnimalFind;
+import animaladvertis.com.animaladvertis.util.FindObjectUtil;
+import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -38,14 +43,13 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.view.LineChartView;
 
 import static com.baidu.location.h.j.B;
+import static com.baidu.location.h.j.S;
 import static com.baidu.location.h.j.p;
 
 public class MerchantActivity extends AppCompatActivity implements View.OnClickListener{
 
     @BindView(R.id.profile_image)
     CircleImageView profileImage;
-    @BindView(R.id.tv_registToMerchant)
-    TextView tvRegistToMerchant;
     @BindView(R.id.tv_username)
     TextView tvUsername;
     @BindView(R.id.tv_location)
@@ -68,8 +72,8 @@ public class MerchantActivity extends AppCompatActivity implements View.OnClickL
     ScrollView svMainContent;
     @BindView(R.id.ll_mainContent)
     LinearLayout llMainContent;
-
-    private Merchant merchant;
+    private User currentUser;
+    private List<Animal> mAnimals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,35 +82,37 @@ public class MerchantActivity extends AppCompatActivity implements View.OnClickL
         ButterKnife.bind(this);
 
 
-        getCurrentMenchant();//获取商户信息
-
-        initChars();//初始化表格数据
-
-
-
+        init();
         tvUserDate.setOnClickListener(this);
+        rlAnimalState.setOnClickListener(this);
+        rlComment.setOnClickListener(this);
     }
 
-    private void getCurrentMenchant() {
-        BmobQuery<Merchant> query = new BmobQuery();
-        query.addWhereEqualTo("objectId", User.getCurrentUser(User.class).getObjectId());
-        query.findObjects(new FindListener<Merchant>() {
+    private void init(){
+        mAnimals = new ArrayList<Animal>();
+        currentUser = BmobUser.getCurrentUser(User.class);
+
+        tvUsername.setText(currentUser.getMerChantName());
+        new LoadImageUtil().loadIMage(getApplicationContext(),profileImage,currentUser.getMerChantPhoto().getFileUrl(),0);
+        new FindObjectUtil(currentUser).findAnimalForMerchant(currentUser.getMerChantName(), new OnAnimalFind() {
             @Override
-            public void done(List<Merchant> list, BmobException e) {
-                if(list!=null){
-                    merchant = list.get(0);
+            public void result(List<Animal> animals) {
+                if(animals!=null){
+                    for (Animal animal: animals) {
+                        addChars(animal);
+                    }
                 }
             }
         });
     }
 
-    private void initChars() {
+    private void addChars(Animal animal) {
 
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_charts,null);
         cvChart = (LineChartView) view.findViewById(R.id.cv_chart);
 
         TextView textView = (TextView) view.findViewById(R.id.tv_animalNme);
-        textView.setText("呵呵");
+        textView.setText(animal.getName());
 
         //cvChart = new LineChartView(getApplicationContext());
         ViewGroup.LayoutParams params= new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
@@ -172,22 +178,7 @@ public class MerchantActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.tv_userDate){
-            Animal animal1 = new Animal();
-            animal1.setName("哈哈");
-            animal1.setScore(10);
-            //animal1.setPicture(userDate.getUserPhoto());
-            animal1.setPicture(merchant.getMerChantPhoto());
-            animal1.setShop(merchant.getMerChantPhoto());
-            //animal1.setShop(userDate.getUserPhoto());
-            animal1.setLocationname(merchant.getLocation());
-            animal1.setShopName(merchant.getName());
-            animal1.setTargetLocation("中国江西省南昌市青山湖区");
-            animal1.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if(e!=null) Log.d("UserActivitymsg",e.getErrorCode()+e.getMessage());
-                }
-            });
+            startActivity(new Intent(MerchantActivity.this,MissionSelectActivity.class));
         }
     }
 }

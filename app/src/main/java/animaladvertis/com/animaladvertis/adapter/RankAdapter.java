@@ -73,7 +73,6 @@ public class RankAdapter extends BaseAdapter {
             hodler.rankScore.setText("Score "+map.get("rankScore"));
             hodler.rankName.setText((String)map.get("rankName"));
         }
-
         return convertView;
     }
 }

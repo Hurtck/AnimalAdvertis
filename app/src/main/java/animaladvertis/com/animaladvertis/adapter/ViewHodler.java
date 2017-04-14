@@ -1,5 +1,6 @@
 package animaladvertis.com.animaladvertis.adapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;

@@ -5,8 +5,7 @@
     android:background="@drawable/radius_bg"
     android:padding="15dp"
     android:layout_height="280dp"
-    android:layout_marginTop="10dp">
-
+    android:layout_marginTop="16dp">
     <ImageView
         android:id="@+id/im_item_img"
         android:layout_width="match_parent"
@@ -22,16 +21,5 @@
         android:text="种类名称"
         android:maxLines="3"
         android:textColor="@android:color/darker_gray" />
-
-
-
-  <!--  <animaladvertis.com.animaladvertis.myview.MyProgress
-        android:id="@+id/pg_progress_item_collect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:progress="50"
-        style="@style/ProgressBar_Mini"
-        android:visibility="visible"
-        />-->
 
 </LinearLayout>

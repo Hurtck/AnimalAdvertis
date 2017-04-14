@@ -31,7 +31,6 @@ public class UserViewPagerAdpter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         if(mlist.get(position).getParent()==null) container.addView(mlist.get(position));
         else {
-
             ((ViewGroup)mlist.get(position).getParent()).removeView(mlist.get(position));
             container.addView(mlist.get(position));
         }

@@ -16,12 +16,70 @@ import static animaladvertis.com.animaladvertis.R.drawable.rank;
  */
 
 public class User extends BmobUser {
-    private String type;
-    private boolean isDefault;
+    /**************************用户通用属性*******************/
     private BmobFile userPhoto;
     private int rank;
     private int level;
     private String merchantID;
+    private String type;
+    private String pwd;
+
+    /******************商户属性************************/
+    private String merChantName;
+    private Boolean isIdentifild;
+    private BmobFile merChantPhoto;
+    private double lon;
+    private double lat;
+    private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMerChantName() {
+        return merChantName;
+    }
+
+    public void setMerChantName(String merChantName) {
+        this.merChantName = merChantName;
+    }
+
+    public Boolean getIdentifild() {
+        return isIdentifild;
+    }
+
+    public void setIdentifild(Boolean identifild) {
+        isIdentifild = identifild;
+    }
+
+    public BmobFile getMerChantPhoto() {
+        return merChantPhoto;
+    }
+
+    public void setMerChantPhoto(BmobFile merChantPhoto) {
+        this.merChantPhoto = merChantPhoto;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
     public String getMerchantID() {
         return merchantID;
     }
@@ -38,7 +96,7 @@ public class User extends BmobUser {
         this.pwd = pwd;
     }
 
-    private String pwd;
+
 
     public int getLevel() {
         return level;
@@ -57,13 +115,6 @@ public class User extends BmobUser {
         this.rank = rank;
     }
 
-    public boolean isDefault() {
-        return isDefault;
-    }
-
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
-    }
 
     public BmobFile getUserPhoto() {
         return userPhoto;

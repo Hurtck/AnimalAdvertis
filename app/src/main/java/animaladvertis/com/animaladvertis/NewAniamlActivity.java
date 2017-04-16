@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobUser;
 
-public class NewAniamlActivity extends AppCompatActivity implements View.OnClickListener {
+public class NewAniamlActivity extends BaserActivity implements View.OnClickListener {
     @BindView(R.id.vp_newAnimal)
     ViewPager vpNewAnimal;
     @BindView(R.id.loadingBar)

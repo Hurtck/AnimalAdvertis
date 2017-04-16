@@ -38,7 +38,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 import static android.R.attr.path;
 import static com.baidu.location.h.j.u;
 
-public class UserSelectActivity extends AppCompatActivity {
+public class UserSelectActivity extends BaserActivity {
     @BindView(R.id.iv_select_back)
     ImageView ivSelectBack;
     @BindView(R.id.rl_photo)

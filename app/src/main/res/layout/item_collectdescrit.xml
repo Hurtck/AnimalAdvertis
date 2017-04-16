@@ -22,7 +22,6 @@
             android:src="@drawable/tupian"/>
 
         <TextView
-            android:gravity="center"
             android:id="@+id/tv_item_collectdes_title"
             android:background="@color/alpheDarkm"
             android:layout_width="match_parent"

@@ -45,3 +45,5 @@
 1079	2530	0	../obj/x86_64/libnative-lib.so	7d59322c9d56921f
 2	253	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	a2639fba11330378
 253	430	0	../obj/x86_64/libnative-lib.so	7d59322c9d56921f
+2	941	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	a2639fba11330378
+941	1925	0	../obj/x86_64/libnative-lib.so	7d59322c9d56921f

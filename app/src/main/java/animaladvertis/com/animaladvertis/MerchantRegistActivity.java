@@ -2,6 +2,7 @@ package animaladvertis.com.animaladvertis;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -39,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static cn.bmob.v3.BmobUser.getCurrentUser;
 import static com.baidu.location.h.j.u;
 
-public class MerchantRegistActivity extends AppCompatActivity {
+public class MerchantRegistActivity extends BaserActivity {
 
     @BindView(R.id.bt_regist)
     Button btRegist;
@@ -59,10 +60,6 @@ public class MerchantRegistActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     @BindView(R.id.default_activity_button_image)
     CircleImageView defaultActivityButtonImage;
-    @BindView(R.id.iv_collect_back)
-    ImageView ivCollectBack;
-    @BindView(R.id.collect_title)
-    TextView collectTitle;
     @BindView(R.id.activity_merchant_regist)
     RelativeLayout activityMerchantRegist;
     @BindView(R.id.tv_loc)
@@ -122,7 +119,9 @@ public class MerchantRegistActivity extends AppCompatActivity {
                     tva.setVisibility(View.VISIBLE);
                 } else if ((phoneNum = etRegistPwd.getText().toString().trim()) == null) {
                     tvb.setVisibility(View.VISIBLE);
-                } else {
+                } else if(mPath==null){
+                    Toast.makeText(getApplicationContext(),"请选择图片",Toast.LENGTH_SHORT).show();
+                }else{
 
                     final BmobFile merchantFile = new BmobFile(new File(mPath));
                     merchantFile.uploadblock(new UploadFileListener() {
@@ -172,6 +171,7 @@ public class MerchantRegistActivity extends AppCompatActivity {
             cursor.moveToFirst();
             mPath = cursor.getString(cursor.getColumnIndex(filePathColumns[0]));
             cursor.close();
+            defaultActivityButtonImage.setImageBitmap(BitmapFactory.decodeFile(mPath));
         }
     }
 

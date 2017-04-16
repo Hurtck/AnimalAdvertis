@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="animaladvertis.com.animaladvertis.CollectdetailActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:background="@color/grayUserTop">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="33dp"
-                android:layout_centerVertical="true"
-                android:id="@+id/iv_collectdetail_back"
-                android:background="@drawable/back" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,20 +30,29 @@
                 android:layout_margin="10dp" />
         </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_collectdetail_list"
-                android:layout_width="30dp"
-                android:layout_height="33dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/list" />
-
     </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         android:id="@+id/fl_content">
     </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grayUserPhoto">
+        <EditText
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="1dp"
+            android:text="发表评价"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

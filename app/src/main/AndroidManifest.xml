@@ -38,7 +38,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="wi3oGpfBHdCSQCHogvM1K7xM73dyPrF6" />
 
-        <activity android:name=".UserActivity" />
+        <activity android:name=".UserActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".CollectActivity" />
         <activity android:name=".CatchActivity" />
         <activity android:name=".CollectdetailActivity" />

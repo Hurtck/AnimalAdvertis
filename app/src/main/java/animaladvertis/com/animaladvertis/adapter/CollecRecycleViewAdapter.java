@@ -45,12 +45,9 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
 
     private static final int TYPE_HEAD=0;
     private static final int TYPE_NORMAL=1;
-    private static final int TYPE_EVA = 2;
-    private static final int TYPE_TITLE = 3;
 
     private int mProgress;
     private BmobFile mSrc;
-    private List<Map<String,Object>> mList;
     private List<Animal> mAnimals;
     private OnItemClickListener mOnItemClickListener;
     private Context mContext;
@@ -61,38 +58,15 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
 
     public CollecRecycleViewAdapter(List<Animal> animals,int progress,BmobFile src){
 
-        int maxMemory = (int)(Runtime.getRuntime().maxMemory()/1024);
-
         mProgress = progress;
         mSrc = src;
-
         mAnimals = animals;
 
-        mList = new ArrayList<>();
-        Map<String,Object> map = new HashMap<>();
-        map.put("userName","asd");
-        map.put("time","2016-9-46");
-        map.put("content","有谁收集好了");
-        mList.add(map);
-
-        map = new HashMap<>();
-        map.put("userName","asd");
-        map.put("time","2016-9-46");
-        map.put("content","好厉害");
-        mList.add(map);
-
-        map = new HashMap<>();
-        map.put("userName","asd");
-        map.put("time","2016-9-46");
-        map.put("content","想去看电影");
-        mList.add(map);
     }
 
     @Override
     public int getItemViewType(int position) {
         if(position==0) return TYPE_HEAD;
-        if(position>mAnimals.size()+1) return TYPE_EVA;
-        if(position==mAnimals.size()+1) return TYPE_TITLE;
         else return TYPE_NORMAL;
     }
 
@@ -109,22 +83,11 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
                     ,parent,false);
             return new CollecdesHodler(itemView,TYPE_HEAD);
         }
-        if(viewType==TYPE_EVA){
-            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_evaluation
-                    ,parent,false);
-            return new EvaHodler(itemView);
-        }
-        if(viewType==TYPE_TITLE){
-            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_evatille
-                    ,parent,false);
-            return new EvtitleHodler(itemView);
-        }
         return new CollecdesHodler(itemView,TYPE_NORMAL);
     }
 
     @Override
     public void onBindViewHolder(final CollecdesHodler holder, final int position) {
-        Log.d("TTitle","Title"+holder.getType());
         if(holder.getType()==TYPE_HEAD){
             Log.d("TTitle","head");
             holder.getWaveView().setProgress(mProgress);
@@ -144,18 +107,16 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
         if(holder.getType()==TYPE_NORMAL){
             int mposition = position-1;
             Animal animal = mAnimals.get(mposition);
-            LoadImageUtil.loadIMage(mContext,holder.getIv_image(),animal.getPicture().getFileUrl(),1,0.2f);
+            LoadImageUtil.loadIMage(mContext,holder.getIv_image(),animal.getDataSrc().getFileUrl(),1,0.2f);
 
             Long str = System.currentTimeMillis();
             Log.d("Currenttime4",""+str);
 
             String location = animal.getLocationname();
             String score = animal.getScore();
-            String name = animal.getName();
             String shopName = animal.getMerchantName();
             holder.getTv_position().setText(location);
             holder.getTv_sell().setText("积分 "+score);
-            holder.getTv_title().setText(name);
             BmobFile nSrc = animal.getShop();
             LoadImageUtil.loadIMage(mContext,holder.getShop(),nSrc.getFileUrl(),1,0.2f);
             holder.getShopName().setText(shopName);
@@ -173,17 +134,6 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
                 }
             });
         }
-        if(holder.getType()==TYPE_TITLE){
-            Log.d("T","Title");
-        }
-        if(holder.getType()==TYPE_EVA){//设置评论数据
-            int mpositon  = position - mAnimals.size()-2;
-            ((EvaHodler)holder).getUserName().setText("hahah");
-            ((EvaHodler)holder).getTime().setText("2016-12-15");
-            ((EvaHodler)holder).getUserPhoto().setImageResource(R.drawable.pig);
-            ((EvaHodler)holder).getContent().setText("WERWE");
-        }
-
     }
 
 
@@ -214,7 +164,7 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
 
     @Override
     public int getItemCount() {
-        return mAnimals.size()+mList.size()+2;
+        return mAnimals.size()+1;
     }
 
     @Override

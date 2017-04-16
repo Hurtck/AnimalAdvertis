@@ -1,5 +1,6 @@
 package animaladvertis.com.animaladvertis.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
@@ -11,7 +12,7 @@ import static android.R.attr.name;
  * Created by 47321 on 2017/3/1 0001.
  */
 
-public class AnimalMission extends BmobObject{
+public class AnimalMission extends BmobObject implements Serializable{
     private String missonName;//任务名称
     private int rank;//任务分数
     private String name;

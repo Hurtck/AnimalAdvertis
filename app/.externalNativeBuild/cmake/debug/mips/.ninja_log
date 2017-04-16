@@ -47,3 +47,5 @@
 1747	2633	0	../obj/mips/libnative-lib.so	59daea6172cccd9a
 1	220	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	9b5500e7b47726da
 220	389	0	../obj/mips/libnative-lib.so	59daea6172cccd9a
+3	2180	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	9b5500e7b47726da
+2180	3041	0	../obj/mips/libnative-lib.so	59daea6172cccd9a

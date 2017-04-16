@@ -149,11 +149,8 @@ public class FindObjectUtil {
             @Override
             public void done(List<Animal> list, BmobException e) {
                 if (e == null) {
-                    int random = (int) (Math.random() * (list.size() / 2));
-
-                    for (int i = 0; i < random; i++) {
-                        int randomA = (int) (Math.random() * (list.size() - 1));
-                        animals.add(list.get(randomA));
+                    for (Animal animal:list) {
+                        animals.add(animal);
                     }
                     onAnimalFind.result(animals);
                 }

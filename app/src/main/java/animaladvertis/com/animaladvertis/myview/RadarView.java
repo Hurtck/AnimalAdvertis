@@ -223,6 +223,14 @@ public class RadarView extends View {
     }
 
     /**
+     * 清除动态点
+     */
+    public void clear(){
+        mPointCount=0;
+        this.invalidate();
+    }
+
+    /**
      * TODO<获取动态点数量>
      *
      * @return int

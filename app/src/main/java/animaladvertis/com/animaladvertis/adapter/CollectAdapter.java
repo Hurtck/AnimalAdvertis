@@ -30,7 +30,9 @@ import static android.R.attr.tag;
 import static android.content.ContentValues.TAG;
 import static animaladvertis.com.animaladvertis.R.drawable.list;
 import static animaladvertis.com.animaladvertis.R.drawable.mission;
+import static animaladvertis.com.animaladvertis.R.id.imageView;
 import static animaladvertis.com.animaladvertis.R.id.map;
+import static animaladvertis.com.animaladvertis.R.id.view_offset_helper;
 import static com.baidu.location.h.j.p;
 
 /**
@@ -42,11 +44,15 @@ public class CollectAdapter extends BaseAdapter {
     private Context mContext;
     private List<Map<String, Object>> mList;
     private LayoutInflater mInflater = null;
+    private ViewHodler hodler;
+
 
     public CollectAdapter(Context context, List<Map<String, Object>> list) {
         mContext = context;
         mList = list;
         mInflater = LayoutInflater.from(context);
+        Log.d("ColloectAdpterMSG"," "+mList.size());
+
     }
 
     @Override
@@ -66,24 +72,22 @@ public class CollectAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View tView = null;
         Map<String, Object> map = mList.get(position);
-        int progress = (int) map.get("number");
-        String kind = (String) map.get("name");
         BmobFile src = (BmobFile) map.get("src");
 
         if (convertView == null) {
-            tView = mInflater.inflate(R.layout.item_collect, null);
+            convertView = mInflater.inflate(R.layout.item_collect, null);
+            hodler = new ViewHodler();
+            hodler.tv_kind = (TextView) convertView.findViewById(R.id.tv_kind_item_collect);
+            hodler.pg_progress = (NumberProgressBar) convertView.findViewById(R.id.pg_progress_item_collect);
+            hodler.im_imag = (ImageView) convertView.findViewById(R.id.im_item_img);
+            convertView.setTag(hodler);
         } else {
-            tView = convertView;
+            hodler = (ViewHodler)convertView.getTag();
         }
-        TextView tv_kind = (TextView) tView.findViewById(R.id.tv_kind_item_collect);
-        NumberProgressBar pg_progress = (NumberProgressBar) tView.findViewById(R.id.pg_progress_item_collect);
-        ImageView im_imag = (ImageView) tView.findViewById(R.id.im_item_img);
-
-        tv_kind.setText(kind + "");
-        pg_progress.setProgress(progress);
-        LoadImageUtil.loadIMage(mContext, im_imag, src.getFileUrl(), 1);
-        return tView;
+        hodler.tv_kind.setText((String) map.get("name"));
+        hodler.pg_progress.setProgress((int) map.get("number"));
+        LoadImageUtil.loadIMage(mContext, hodler.im_imag, src.getFileUrl(),1);
+        return convertView;
     }
 }

@@ -25,7 +25,7 @@ import cn.bmob.v3.listener.SaveListener;
 import static cn.bmob.v3.update.BmobUpdateAgent.setDefault;
 import static com.baidu.location.h.j.u;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaserActivity {
     private EditText et_userName;
     private EditText et_pwd;
     private Button bt_login;

@@ -3,7 +3,7 @@ package animaladvertis.com.animaladvertis;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MerchantIdentifiActivity extends AppCompatActivity {
+public class MerchantIdentifiActivity extends BaserActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

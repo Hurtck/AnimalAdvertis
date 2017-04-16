@@ -42,7 +42,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.baidu.location.h.j.U;
 import static com.baidu.location.h.j.u;
 
-public class RegistActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegistActivity extends BaserActivity implements View.OnClickListener{
 
     private EditText et_userName,et_pwd,et_email;
     private TextView tva,tvb,tvc;

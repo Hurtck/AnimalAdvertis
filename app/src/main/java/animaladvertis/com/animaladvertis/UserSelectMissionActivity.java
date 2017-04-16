@@ -26,9 +26,10 @@ import animaladvertis.com.animaladvertis.util.FindObjectUtil;
 import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 
-public class UserSelectMissionActivity extends AppCompatActivity {
+public class UserSelectMissionActivity extends BaserActivity {
 
     @BindView(R.id.loadingBar)
     TextView loadingBar;
@@ -38,7 +39,9 @@ public class UserSelectMissionActivity extends AppCompatActivity {
     private User currentUser;
     private List<View> viewList = new ArrayList<>();
     private List<AnimalMission> animalMissions = new ArrayList<>();
+    private List<AnimalMission> userAnimalMision = new ArrayList<>();
     private String missionName;
+    private int lodingSymbol = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,47 +54,62 @@ public class UserSelectMissionActivity extends AppCompatActivity {
             public void result(List<AnimalMission> missions, int progress) {
                 if(missions!=null){
                     animalMissions = missions;
+                    lodingSymbol++;
                     initUI();
                 }else{
                     loadingBar.setText("加载失败");
                 }
             }
         });
+        new FindObjectUtil(currentUser).findAnimalMission(currentUser.getUsername(), new OnMissionsFind() {
+            @Override
+            public void result(List<AnimalMission> missions, int progress) {
+                userAnimalMision = missions;
+                lodingSymbol++;
+                initUI();
+            }
+        });
 
     }
     private void initUI() {
-        for (AnimalMission model : animalMissions) {
-            LayoutInflater layoutInflater = getLayoutInflater();
-            View view = layoutInflater.inflate(R.layout.item_viewpage_animal, null);
-            ImageView src = (ImageView) view.findViewById(R.id.iv_src);
-            TextView name = (TextView) view.findViewById(R.id.tv_name);
-            TextView score = (TextView) view.findViewById(R.id.tv_score);
-            TextView price = (TextView) view.findViewById(R.id.tv_price);
-            TextView add = (TextView) view.findViewById(R.id.bt_addDetail);
-            NumberProgressBar npg = (NumberProgressBar) view.findViewById(R.id.npb_star);
+        if(lodingSymbol>=2){
 
-            new LoadImageUtil().loadIMage(getApplicationContext(), src, model.getPicFile().getFileUrl(), 1);
-            name.setText(model.getName());
-            score.setText(model.getRank()+"");
-            price.setText(model.getPrice()+"");
-            add.setText("点我添加");
-            npg.setVisibility(View.INVISIBLE);
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    missionName = animalMissions.get(vpNewAnimal.getCurrentItem()).getMissonName();
-                    new FindObjectUtil(currentUser).addMissionForUser(missionName, new OnAnimalAdd() {
-                        @Override
-                        public void result(String msg) {
-                            if("".equals(msg)) Toast.makeText(getApplicationContext(),"动物添加成功",Toast.LENGTH_SHORT).show();
-                            else Toast.makeText(getApplicationContext(),""+msg,Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            });
-            viewList.add(view);
+
+
+            for (AnimalMission model : animalMissions) {
+
+                LayoutInflater layoutInflater = getLayoutInflater();
+                View view = layoutInflater.inflate(R.layout.item_viewpage_animal, null);
+                ImageView src = (ImageView) view.findViewById(R.id.iv_src);
+                TextView name = (TextView) view.findViewById(R.id.tv_name);
+                TextView score = (TextView) view.findViewById(R.id.tv_score);
+                TextView price = (TextView) view.findViewById(R.id.tv_price);
+                TextView add = (TextView) view.findViewById(R.id.bt_addDetail);
+                NumberProgressBar npg = (NumberProgressBar) view.findViewById(R.id.npb_star);
+
+                new LoadImageUtil().loadIMage(getApplicationContext(), src, model.getPicFile().getFileUrl(), 1);
+                name.setText(model.getName());
+                score.setText(model.getRank()+"");
+                price.setText(model.getPrice()+"");
+                add.setText("点我添加");
+                npg.setVisibility(View.INVISIBLE);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        missionName = animalMissions.get(vpNewAnimal.getCurrentItem()).getMissonName();
+                        new FindObjectUtil(currentUser).addMissionForUser(missionName, new OnAnimalAdd() {
+                            @Override
+                            public void result(String msg) {
+                                if("".equals(msg)) Toast.makeText(getApplicationContext(),"动物添加成功",Toast.LENGTH_SHORT).show();
+                                else Toast.makeText(getApplicationContext(),""+msg,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                viewList.add(view);
+            }
+            vpNewAnimal.setAdapter(new Adapter());
         }
-        vpNewAnimal.setAdapter(new Adapter());
 
     }
 

@@ -22,25 +22,27 @@ import java.util.Random;
 
 import animaladvertis.com.animaladvertis.beans.Animal;
 import animaladvertis.com.animaladvertis.beans.User;
+import animaladvertis.com.animaladvertis.callback.OnAnimalFind;
 import animaladvertis.com.animaladvertis.callback.RadarListener;
 import animaladvertis.com.animaladvertis.myview.RadarView;
+import animaladvertis.com.animaladvertis.util.FindObjectUtil;
 import animaladvertis.com.animaladvertis.util.StringUtil;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener{
+public class SearchActivity extends BaserActivity implements View.OnClickListener{
 
     private RadarView radar;
-    private TextView tvSearchNumber;
+    private TextView tvSearchNumber,tip;
     private Button brSearchMap;
-    private ImageView ivSearchBack;
     private User user;
-    private ArrayList<Animal> animals = new ArrayList<>();
+    public static ArrayList<Animal> mAnimals = new ArrayList<>();
     private LocationClient locationClient;
     private String currentLocation;
     private String district;
+
 
     private int STATE_LOCATION_SUCCSE = 0;
     private int STATE_RADAR_MOVE = 0;
@@ -55,41 +57,43 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStop() {
         super.onStop();
-        locationClient = null;
+        locationClient.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        radar.clear();
+        mAnimals.clear();
+        tvSearchNumber.setText(mAnimals.size()+"");
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.bt_search_map){
-            StringBuilder sb = new StringBuilder();
-            for(Animal am:animals){
-                String merchantName = am.getMerchantName();
-                sb.append(merchantName);
-                sb.append("|");
+            if(mAnimals.size()==0){
+                Toast.makeText(getApplicationContext(),"你还没有找到动物",Toast.LENGTH_SHORT).show();
+            }else {
+                Intent intent = new Intent(this,CatchActivity.class);
+                startActivity(intent);
+                finish();
             }
-            Intent intent = new Intent(this,CatchActivity.class);
-            intent.putExtra("adress",sb.toString());
-            startActivity(intent);
-            finish();
+
         }
-        if(v.getId() == R.id.iv_search_back) finish();
     }
 
     private void init() {
         radar = (RadarView) findViewById(R.id.radar);
         tvSearchNumber = (TextView) findViewById(R.id.tv_search_number);
         brSearchMap = (Button) findViewById(R.id.bt_search_map);
-        ivSearchBack = (ImageView) findViewById(R.id.iv_search_back);
-
-        ivSearchBack.setOnClickListener(this);
+        tip = (TextView) findViewById(R.id.tv_tip);
         brSearchMap.setOnClickListener(this);
-        tvSearchNumber.setText("0");
+        getSupportActionBar().setTitle("搜索界面");
 
         user = BmobUser.getCurrentUser(User.class);
         locationClient = new LocationClient(getApplicationContext());
@@ -98,8 +102,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         options.setCoorType("bd00911");
         options.setProdName("animalAdvertis");
         options.setScanSpan(2000);
-        //options.setOpenAutoNotifyMode();
-        //options.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
         options.setIsNeedAddress(true);
         locationClient.setLocOption(options);
         locationClient.registerLocationListener(new BDLocationListener() {
@@ -107,16 +109,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             public void onReceiveLocation(BDLocation bdLocation) {
                 if (bdLocation!= null) {
                     if(radar.isSearching()) {
-                        Log.d("SeachActivitymsg",
-                                "1:" + bdLocation.getCity()
-                                        + "2:" + bdLocation.getLatitude()
-                                        +"2.1:"+bdLocation.getLongitude()
-                                        + "3:" + bdLocation.getDistrict()
-                                        + "4:" + bdLocation.getStreet()
-                                        + "5:" + bdLocation.getAddrStr());
+                        tip.setVisibility(View.INVISIBLE);
                         district = bdLocation.getDistrict();
                         currentLocation = bdLocation.getAddrStr();
                         getAniaml();
+                    }
+                    if(!radar.isSearching()){
+                        tip.setVisibility(View.VISIBLE);
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"location failed",Toast.LENGTH_LONG).show();
@@ -129,24 +128,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     private void getAniaml() {
         if ((currentLocation = StringUtil.cutString(currentLocation, district)) != null) {
-            Toast.makeText(getApplicationContext(),currentLocation,Toast.LENGTH_LONG).show();
-            BmobQuery<Animal> query = new BmobQuery<>();
-            query.addWhereEqualTo("targetLocation", currentLocation);
-            query.setLimit(20);
-            query.findObjects(new FindListener<Animal>() {
+            radar.clear();
+            mAnimals.clear();
+            new FindObjectUtil(BmobUser.getCurrentUser(User.class)).findAnimalByLocation(currentLocation, new OnAnimalFind() {
                 @Override
-                public void done(List<Animal> list, BmobException e) {
-                    if (e == null) {
-                        int random = (int)(Math.random()*(list.size()/2));
-                        animals.clear();
-                        for(int i=0;i<random;i++){
-                            int randomA = (int)(Math.random()*(list.size()-1));
-                            animals.add(list.get(randomA));
-                            Log.d("SeachActivitymsg",list.get(randomA).getName());
-                            radar.addPoint();
-                        }
+                public void result(List<Animal> animals) {
+                    if(animals!=null) {
+                        tvSearchNumber.setText(animals.size()+"");
                         Log.d("SeachActivitymsg", animals.size()+"");
-                        tvSearchNumber.setText(radar.getPointCount() + "");
+                        for (Animal animal:animals) {
+                            mAnimals.add(animal);
+                            radar.addPoint();
+                            Toast.makeText(getApplicationContext(),""+animal.getName(),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        Log.d("SeachActivitymsg", "no data found");
                     }
                 }
             });

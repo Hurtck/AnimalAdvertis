@@ -26,7 +26,7 @@ public class Animal extends BmobObject{
     private String sell;//传单折扣
     private BmobFile picture;//传单图片
     private BmobFile shop;//商家标题
-    private BmobFile dataSrc;
+    private BmobFile dataSrc;//描述图片
 
     public BmobFile getDataSrc() {
         return dataSrc;

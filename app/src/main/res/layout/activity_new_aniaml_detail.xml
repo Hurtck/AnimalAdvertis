@@ -69,7 +69,7 @@
             android:id="@+id/pic"
             android:textColorHint="@color/littleGravy"
             android:layout_width="match_parent"
-            android:layout_height="128dp" />
+            android:layout_height="100dp" />
         <Button
             android:id="@+id/comfirm"
             android:layout_gravity="center_horizontal"

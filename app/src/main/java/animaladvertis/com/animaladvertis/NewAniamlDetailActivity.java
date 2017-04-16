@@ -32,7 +32,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 import static com.baidu.location.h.j.c;
 import static com.baidu.location.h.j.s;
 
-public class NewAniamlDetailActivity extends AppCompatActivity {
+public class NewAniamlDetailActivity extends BaserActivity {
 
     @BindView(R.id.imageView)
     ImageView imageView;
@@ -140,6 +140,7 @@ public class NewAniamlDetailActivity extends AppCompatActivity {
         animal.setKind(tType);
         animal.setScore(animalModel.getScore());
         animal.setMissionName(missionName);
+        animal.setMerchantName(currentUser.getMerChantName());
         animal.setDescription(tDetail);
         animal.save(new SaveListener<String>() {
             @Override

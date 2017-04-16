@@ -10,10 +10,9 @@
                 android:id="@+id/appBar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="456dp"
+                    android:layout_height="370dp"
                     app:layout_scrollFlags="scroll">
 
                     <LinearLayout
@@ -80,7 +79,7 @@
 
                         </RelativeLayout>
 
-                        <LinearLayout
+                      <!--  <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             android:layout_marginTop="10dp"
@@ -148,7 +147,7 @@
                                 android:layout_width="3dp"
                                 android:layout_height="20dp"
                                 android:background="@color/grayUserPhoto" />
-                        </LinearLayout>
+                        </LinearLayout>-->
                         <TextView
                             android:id="@+id/add"
                             android:layout_width="match_parent"
@@ -159,12 +158,77 @@
                             android:textColor="@color/littleGravy"
                             android:background="@drawable/rl_select_center"/>
                     </LinearLayout>
-
-
                 </android.support.design.widget.CollapsingToolbarLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/grayUserPhoto"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_level"
+                            android:layout_centerHorizontal="true"
+                            android:text="Level"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text=""
+                            android:textColor="@color/lineSecend"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="2dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="50dp"
+                        android:background="@color/grayUserTop" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="50dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_rank"
+                            android:layout_centerHorizontal="true"
+                            android:text="Rank"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text=""
+                            android:textColor="@color/lineSecend"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="3dp"
+                        android:layout_height="20dp"
+                        android:background="@color/grayUserPhoto" />
+                </LinearLayout>
             </android.support.design.widget.AppBarLayout>
-
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
@@ -173,7 +237,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="32dp">
+                android:paddingBottom="64dp">
 
                 <TextView
                     android:id="@+id/loading"
@@ -193,7 +257,6 @@
 
 
         </android.support.v4.widget.NestedScrollView>
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -2,8 +2,10 @@ package animaladvertis.com.animaladvertis;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ import butterknife.ButterKnife;
 import cn.bmob.v3.BmobUser;
 
 
-public class MissionSelectActivity extends AppCompatActivity {
+public class MissionSelectActivity extends BaserActivity {
 
     @BindView(R.id.lv_mission)
     ListView lvMission;
@@ -45,6 +47,8 @@ public class MissionSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maission_select);
         ButterKnife.bind(this);
+        lvMission.setDivider(new ColorDrawable(getResources().getColor(R.color.grayUserTop)));
+        lvMission.setDividerHeight(8);
         lvMission.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,6 +91,7 @@ public class MissionSelectActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            Log.d("MissionSelectMSG",position+"");
             if(convertView==null){
                 convertView = layoutInflater.from(getApplicationContext()).inflate(R.layout.item_collect,null);
                 hodler = new ViewHodler();

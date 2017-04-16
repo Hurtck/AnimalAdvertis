@@ -19,6 +19,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
@@ -36,18 +37,25 @@ import java.util.List;
 
 import animaladvertis.com.animaladvertis.beans.AnimalOnMap;
 import animaladvertis.com.animaladvertis.beans.Merchant;
+import animaladvertis.com.animaladvertis.beans.User;
+import animaladvertis.com.animaladvertis.util.FindObjectUtil;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
+import static com.baidu.location.h.j.m;
+import static com.baidu.location.h.j.u;
 
-public class GuideActivity extends AppCompatActivity{
+
+public class GuideActivity extends BaserActivity {
 
     private TextureMapView map;
     private PoiSearch poiSearch;
     private LatLng currentLocation;
     private LocationClient locationClient1;
-    private String adress;
+    private LatLng merchantAddress;
     private BaiduMap mBaidumap;
     private List<AnimalOnMap> animas;
     private LinearLayout ll;
@@ -58,73 +66,70 @@ public class GuideActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_guide);
-        map = (TextureMapView)findViewById(R.id.map);
+        map = (TextureMapView) findViewById(R.id.map);
         ll = (LinearLayout) findViewById(R.id.ll_window);
 
+
         mBaidumap = map.getMap();
-        map.removeViewAt(1);
-        getCurrentPosition();
+        mBaidumap.setMaxAndMinZoomLevel(3f,10f);
         mBaidumap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(getApplicationContext(),"maeker",Toast.LENGTH_SHORT).show();
-                Bundle bundle = marker.getExtraInfo();
-                AnimalOnMap animalOnMap = (AnimalOnMap) bundle.getSerializable("animalOnMap");
+                Toast.makeText(getApplicationContext(), "maeker", Toast.LENGTH_SHORT).show();
+
                 ImageView img = (ImageView) findViewById(R.id.iv_animalinfo);
                 TextView name = (TextView) findViewById(R.id.tv_animalinfo_title);
                 TextView descript = (TextView) findViewById(R.id.tv_animalinfo_descrip);
-                img.setImageResource(animalOnMap.getImgId());
-                name.setText(animalOnMap.getName());
-                descript.setText(animalOnMap.getDescription());
+
                 ll.setVisibility(View.VISIBLE);
                 return true;
             }
         });
+        mBaidumap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                ll.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public boolean onMapPoiClick(MapPoi mapPoi) {
+                return false;
+            }
+        });
         Intent intent = getIntent();
-        String add = intent.getStringExtra("adress");
-        String addDate[] = add.split("|");
-        for(int i=0;i<addDate.length;i++){
-            BmobQuery<Merchant> query= new BmobQuery<>();
-            query.addWhereEqualTo("name",addDate[i]);
-            query.findObjects(new FindListener<Merchant>() {
-                @Override
-                public void done(List<Merchant> list, BmobException e) {
-                    if(e==null){
-                        Merchant merchant = list.get(0);
-                        merchants.add(merchant);
-                        Log.d("guideactivity","lat: "+merchant.getLat()
-                        +"lon: "+merchant.getLon());
-                    }
+        final String merchantName = intent.getStringExtra("merchantName");
+
+        BmobQuery<User> find = new BmobQuery<>();
+        find.addWhereEqualTo("merChantName", merchantName);
+        find.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e == null) {
+                    User user = new User();
+                    merchantAddress = new LatLng(user.getLat(), user.getLon());
+                    getCurrentPosition();
                 }
-            });
-        }
+            }
+        });
     }
 
     private void setAnimalPosition() {
         setAnimalInfo();
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.animalloc);
-        LatLng lat = null;
-        Marker marker;
         OverlayOptions option;
-        for(AnimalOnMap animal : animas){
-            lat = new LatLng(animal.getLatitude(),animal.getLongitude());
-            option = new MarkerOptions()
-                    .position(lat)
-                    .icon(bitmap)
-                    .zIndex(9);
-            marker = (Marker) mBaidumap.addOverlay(option);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("animalOnMap",animal);
-            marker.setExtraInfo(bundle);
-        }
+        option = new MarkerOptions()
+                .position(merchantAddress)
+                .icon(bitmap)
+                .zIndex(9);
+        mBaidumap.addOverlay(option);
     }
 
     private void setAnimalInfo() {
         animas = new ArrayList<AnimalOnMap>();
-        for (Merchant mc:merchants) {
+        for (Merchant mc : merchants) {
             Double lat = mc.getLat();
             Double lon = mc.getLon();
-            animas.add(new AnimalOnMap(lat,lon,mc.getName(),R.drawable.move,"出现概率高"));
+            animas.add(new AnimalOnMap(lat, lon, mc.getName(), R.drawable.move, "出现概率高"));
         }
     }
 
@@ -142,24 +147,17 @@ public class GuideActivity extends AppCompatActivity{
         locationClient1.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                if(bdLocation==null){
-                    Toast.makeText(getApplicationContext(),"定位失败",Toast.LENGTH_SHORT);
-                }else{
-                    double latitude = bdLocation.getLatitude();
-                    double longitude = bdLocation.getLongitude();
-                    Log.d("getLatitude",latitude+"|"+longitude);
-                    adress = bdLocation.getAddrStr();
-                    currentLocation = new LatLng(latitude,longitude);
-                    setMyPosition(bdLocation);
+                if (bdLocation == null) {
+                    Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_SHORT);
+                } else {
+                    //currentLocation = new LatLng(latitude, longitude);
+                    //setMyPosition(bdLocation);
                     setAnimalPosition();
-                    /*BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.weizhi);
-                    mBaidumap.setMyLocationEnabled(true);
-                    MyLocationConfiguration myLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS,true,icon);
-                    mBaidumap.setMyLocationConfigeration(myLocationConfiguration);*/
+                    MapStatusUpdate mapUpdate = MapStatusUpdateFactory.newLatLng(merchantAddress);
 
-                    MapStatusUpdate mapUpdate = MapStatusUpdateFactory.newLatLng(currentLocation);
                     mBaidumap.setMapStatus(mapUpdate);
-                    if(locationClient1.isStarted()){
+                    mBaidumap.setMapStatus(MapStatusUpdateFactory.zoomTo(15));
+                    if (locationClient1.isStarted()) {
                         locationClient1.stop();
                     }
                 }
@@ -171,14 +169,14 @@ public class GuideActivity extends AppCompatActivity{
     private void setMyPosition(BDLocation bdLocation) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.weizhi);
         mBaidumap.setMyLocationEnabled(true);
-        MyLocationConfiguration myLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS,true,icon);
+        MyLocationConfiguration myLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS, true, icon);
         mBaidumap.setMyLocationConfigeration(myLocationConfiguration);
 
         MyLocationData locDate = new MyLocationData.Builder()
                 .accuracy(bdLocation.getRadius())
                 .direction(100).latitude(bdLocation.getLatitude())
                 .longitude(bdLocation.getLongitude()).build();
-                mBaidumap.setMyLocationData(locDate);
+        mBaidumap.setMyLocationData(locDate);
     }
 
     @Override

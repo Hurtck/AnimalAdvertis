@@ -47,3 +47,5 @@
 543	1396	0	../obj/x86/libnative-lib.so	c33821804f8316a2
 2	204	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	473e7d88bb862e29
 204	374	0	../obj/x86/libnative-lib.so	c33821804f8316a2
+2	775	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	473e7d88bb862e29
+775	1801	0	../obj/x86/libnative-lib.so	c33821804f8316a2

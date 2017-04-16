@@ -20,16 +20,15 @@ import com.andexert.library.RippleView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import animaladvertis.com.animaladvertis.fragment.CdetailFragment;
 import animaladvertis.com.animaladvertis.fragment.CdetailFragmentB;
 
 import static android.R.attr.rating;
 
-public class CollectdetailActivity extends AppCompatActivity {
+public class CollectdetailActivity extends BaserActivity {
 
-    private ImageView iv_back;
-    private ImageView iv_list;
     private CdetailFragment detail;
     private CdetailFragmentB cdetailFragmentB;
     private TextView ib_a;
@@ -39,12 +38,8 @@ public class CollectdetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collectdetail);
-
-        iv_back = (ImageView) findViewById(R.id.iv_collectdetail_back);
-        iv_list = (ImageView) findViewById(R.id.iv_collectdetail_list);
         ib_a = (TextView) findViewById(R.id.ib_detail_a);
         ib_b = (TextView) findViewById(R.id.ib_detail_b);
-
         ib_a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,12 +60,6 @@ public class CollectdetailActivity extends AppCompatActivity {
             }
         });
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         setDefaultFragment();
     }
 

@@ -9,7 +9,6 @@
 
     <ListView
         android:id="@+id/lv_mission"
-        android:dividerHeight="18dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

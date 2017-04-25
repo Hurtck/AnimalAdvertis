@@ -9,7 +9,7 @@ import cn.bmob.v3.datatype.BmobFile;
  */
 
 public class AnimalModel implements Serializable{
-    private String score;
+    private int score;
     private int start;
     private double price;
 
@@ -31,11 +31,11 @@ public class AnimalModel implements Serializable{
 
     private String name;
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 

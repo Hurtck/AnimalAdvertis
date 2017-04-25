@@ -107,16 +107,22 @@ public class CollecRecycleViewAdapter extends RecyclerView.Adapter<CollecdesHodl
         if(holder.getType()==TYPE_NORMAL){
             int mposition = position-1;
             Animal animal = mAnimals.get(mposition);
-            LoadImageUtil.loadIMage(mContext,holder.getIv_image(),animal.getDataSrc().getFileUrl(),1,0.2f);
+            LoadImageUtil.loadIMage(mContext,holder.getIv_image(),animal.getPicture().getFileUrl(),1,0.2f);
 
             Long str = System.currentTimeMillis();
             Log.d("Currenttime4",""+str);
+            if(animal.isTag()) holder.getTv_title().setVisibility(View.INVISIBLE);
+            else {
+                holder.getTv_title().setVisibility(View.VISIBLE);
+                holder.getTv_title().setText("未收集");
+            }
 
             String location = animal.getLocationname();
-            String score = animal.getScore();
+            int score = animal.getScore();
             String shopName = animal.getMerchantName();
             holder.getTv_position().setText(location);
             holder.getTv_sell().setText("积分 "+score);
+            holder.getTv_name().setText(animal.getName());
             BmobFile nSrc = animal.getShop();
             LoadImageUtil.loadIMage(mContext,holder.getShop(),nSrc.getFileUrl(),1,0.2f);
             holder.getShopName().setText(shopName);

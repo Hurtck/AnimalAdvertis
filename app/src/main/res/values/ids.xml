@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="animal1" type="id"/>
+    <item name="animal2" type="id"/>
+    <item name="animal3" type="id"/>
+    <item name="animal4" type="id"/>
+    <item name="animal5" type="id"/>
+    <item name="animal6" type="id"/>
+    <item name="animal7" type="id"/>
+    <item name="animal8" type="id"/>
+    <item name="animal9" type="id"/>
+    <item name="animal0" type="id"/>
+</resources>

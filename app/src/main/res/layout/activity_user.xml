@@ -26,7 +26,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="240dp"
                             android:background="@drawable/userbac">
-
+                            <ImageView
+                                android:id="@+id/iv_more"
+                                android:scaleType="fitXY"
+                                android:layout_marginTop="10dp"
+                                android:layout_width="40dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/list"/>
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/profile_image"
                                 android:layout_width="130dp"
@@ -79,82 +85,13 @@
 
                         </RelativeLayout>
 
-                      <!--  <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/grayUserPhoto"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal">
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/tv_level"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="Level"
-                                    android:textColor="@android:color/darker_gray"
-                                    android:textSize="18sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_level"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:text=""
-                                    android:textColor="@color/lineSecend"
-                                    android:textSize="18sp" />
-                            </RelativeLayout>
-
-                            <TextView
-                                android:layout_width="2dp"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="50dp"
-                                android:background="@color/grayUserTop" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="50dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/tv_rank"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="Rank"
-                                    android:textColor="@android:color/darker_gray"
-                                    android:textSize="18sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_rank"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:text=""
-                                    android:textColor="@color/lineSecend"
-                                    android:textSize="18sp" />
-                            </RelativeLayout>
-
-                            <TextView
-                                android:layout_width="3dp"
-                                android:layout_height="20dp"
-                                android:background="@color/grayUserPhoto" />
-                        </LinearLayout>-->
                         <TextView
                             android:id="@+id/add"
                             android:layout_width="match_parent"
                             android:layout_height="32dp"
                             android:gravity="center"
                             android:layout_marginTop="8dp"
-                            android:text="添加任务"
+                            android:text="商家页面"
                             android:textColor="@color/littleGravy"
                             android:background="@drawable/rl_select_center"/>
                     </LinearLayout>
@@ -223,10 +160,6 @@
                             android:textSize="18sp" />
                     </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="3dp"
-                        android:layout_height="20dp"
-                        android:background="@color/grayUserPhoto" />
                 </LinearLayout>
             </android.support.design.widget.AppBarLayout>
         <android.support.v4.widget.NestedScrollView

@@ -1,6 +1,7 @@
 package animaladvertis.com.animaladvertis.beans;
 
 
+import java.io.Serializable;
 import java.lang.annotation.Target;
 
 import cn.bmob.v3.BmobObject;
@@ -10,7 +11,7 @@ import cn.bmob.v3.datatype.BmobFile;
  * Created by 47321 on 2016/12/13 0013.
  */
 
-public class Animal extends BmobObject{
+public class Animal extends BmobObject implements Serializable{
     public String getMissionName() {
         return missionName;
     }
@@ -20,13 +21,23 @@ public class Animal extends BmobObject{
     }
 
     private String name;//传单名字
-    private String score;//传单积分
+    private int score;//传单积分
     private String description;//传单描述
     private String kind;//传单种类
     private String sell;//传单折扣
     private BmobFile picture;//传单图片
     private BmobFile shop;//商家标题
     private BmobFile dataSrc;//描述图片
+
+    private boolean tag=false;//收集标志
+
+    public boolean isTag() {
+        return tag;
+    }
+
+    public void setTag(boolean tag) {
+        this.tag = tag;
+    }
 
     public BmobFile getDataSrc() {
         return dataSrc;
@@ -79,11 +90,11 @@ public class Animal extends BmobObject{
         this.name = name;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 

@@ -25,7 +25,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:background="@drawable/userbac">
+                android:background="@drawable/bt_bac">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
@@ -132,6 +132,7 @@
                 android:id="@+id/ll_date_content"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
+                android:layout_margin="10dp"
                 android:layout_height="wrap_content">
 
             </LinearLayout>

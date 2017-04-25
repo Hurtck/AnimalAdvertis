@@ -49,6 +49,7 @@ public class UserSelectMissionActivity extends BaserActivity {
         setContentView(R.layout.activity_user_select_mission);
         ButterKnife.bind(this);
         currentUser = BmobUser.getCurrentUser(User.class);
+        getSupportActionBar().setTitle("选择你要添加的收集任务");
         new FindObjectUtil(BmobUser.getCurrentUser(User.class)).findAnimalMission(new OnMissionsFind() {
             @Override
             public void result(List<AnimalMission> missions, int progress) {
@@ -72,10 +73,8 @@ public class UserSelectMissionActivity extends BaserActivity {
 
     }
     private void initUI() {
+
         if(lodingSymbol>=2){
-
-
-
             for (AnimalMission model : animalMissions) {
 
                 LayoutInflater layoutInflater = getLayoutInflater();

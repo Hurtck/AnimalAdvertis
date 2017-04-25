@@ -46,6 +46,8 @@ public class NewAniamlActivity extends BaserActivity implements View.OnClickList
         missionName = bundle.getString("missionName");
         loadingBar.setText(missionName);
 
+        getSupportActionBar().setTitle("选择一个传单模板");
+
         new FindObjectUtil(BmobUser.getCurrentUser(User.class)).findAnimalModelByMissoion(
                 missionName, new FindRusultListener<AnimalModel>() {
                     @Override
@@ -75,7 +77,7 @@ public class NewAniamlActivity extends BaserActivity implements View.OnClickList
 
             new LoadImageUtil().loadIMage(getApplicationContext(), src, model.getSrc().getFileUrl(), 1);
             name.setText(model.getName());
-            score.setText(model.getScore());
+            score.setText(model.getScore()+"");
             price.setText(model.getPrice()+"");
             npg.setProgress(model.getStart());
             add.setOnClickListener(this);

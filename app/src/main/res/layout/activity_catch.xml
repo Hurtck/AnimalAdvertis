@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_catch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,11 +10,15 @@
         android:id="@+id/sf_look"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <!--<animaladvertis.com.animaladvertis.myview.MyGLSurfaceView
+    <animaladvertis.com.animaladvertis.myview.MyGLSurfaceView
         android:id="@+id/sf_target"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <animaladvertis.com.animaladvertis.myview.MyCatchBall
+        android:id="@+id/mb_catchBall"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
+        android:layout_height="400dp" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/catch_ball"
         android:layout_width="wrap_content"
@@ -21,6 +26,67 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="bottom|center_horizontal"
         android:src="@drawable/radius_bg"/>
+    <RelativeLayout
+        android:id="@+id/rl_animal"
+        android:visibility="invisible"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:background="@drawable/radius_bg">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="28dp"
+            android:text="捕捉成功！"/>
+        <ImageView
+            android:id="@+id/animalSrc"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/a3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"/>
+        <TextView
+            android:id="@+id/tv_animalName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="animalName"
+            android:layout_centerHorizontal="true"
+            android:textSize="28sp"
+            android:layout_marginTop="190dp"/>
+        <TextView
+            android:id="@+id/tv_animalDescripte"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="descripte"
+            android:padding="10dp"
+            android:maxLines="4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dp"/>
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/bt_catch"
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="继续抓捕"/>
+            <Button
+                android:id="@+id/bt_detail"
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="查看详情"/>
+        </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import java.io.File;
 
 import animaladvertis.com.animaladvertis.beans.Animal;
 import animaladvertis.com.animaladvertis.beans.AnimalModel;
+import animaladvertis.com.animaladvertis.beans.MissionAnimal;
 import animaladvertis.com.animaladvertis.beans.User;
 import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import butterknife.BindView;
@@ -57,13 +59,15 @@ public class NewAniamlDetailActivity extends BaserActivity {
     private Animal animal;
     private User currentUser;
     private String missionName;
-    private BmobFile bmobFile;
+    private BmobFile bmobFile,dataSrc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_aniaml_detail);
         ButterKnife.bind(this);
+
+        getSupportActionBar().setTitle("完善传单细节");
 
         missionName = getIntent().getExtras().getString("missionName");
         animalModel = (AnimalModel) getIntent().getSerializableExtra("model");
@@ -103,14 +107,14 @@ public class NewAniamlDetailActivity extends BaserActivity {
             String mPath = cursor.getString(cursor.getColumnIndex(filePathColumns[0]));
             cursor.close();
             LoadImageUtil.loadIMage(getApplicationContext(), pic, mPath, 0);
-            bmobFile = new BmobFile(new File(mPath));
-            bmobFile.uploadblock(new UploadFileListener() {
+            dataSrc = new BmobFile(new File(mPath));
+            dataSrc.uploadblock(new UploadFileListener() {
                 @Override
                 public void done(BmobException e) {
 
                 }
             });
-            animal.setDataSrc(bmobFile);
+            animal.setDataSrc(dataSrc);//设置传单描述图片
         }
     }
 
@@ -128,26 +132,48 @@ public class NewAniamlDetailActivity extends BaserActivity {
     }
 
     private void publishAnimal(){
-        String tAniMalname,tTargetLocation,tDetail,tType;
+
+        final String tAniMalname,tTargetLocation,tDetail,tType;
         tAniMalname = shopName.getText().toString().trim();
         tTargetLocation = targetLocation.getText().toString().trim();
         tDetail = detail.getText().toString().trim();
         tType = type.getText().toString().trim();
-        animal.setName(tAniMalname);
-        animal.setShop(currentUser.getMerChantPhoto());
-        animal.setLocationname(currentUser.getLocation());
-        animal.setTargetLocation(tTargetLocation);
-        animal.setKind(tType);
-        animal.setScore(animalModel.getScore());
-        animal.setMissionName(missionName);
-        animal.setMerchantName(currentUser.getMerChantName());
-        animal.setDescription(tDetail);
-        animal.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                if(e==null) Toast.makeText(getApplicationContext(),"动物发布成功",Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        if(tAniMalname==null||"".equals(tAniMalname)
+                ||tTargetLocation==null||"".equals(tTargetLocation)
+                ||tDetail==null||"".equals(tDetail)
+                ||tType==null||"".equals(tType)){
+            Toast.makeText(getApplicationContext(),"请完善信息",Toast.LENGTH_SHORT).show();
+        }else{
+            animal.setPicture(bmobFile);//设置传单图片
+            animal.setName(tAniMalname);
+            animal.setShop(currentUser.getMerChantPhoto());
+            animal.setLocationname(currentUser.getLocation());
+            animal.setTargetLocation(tTargetLocation);
+            animal.setKind(tType);
+            animal.setScore(animalModel.getScore());
+            animal.setMissionName(missionName);
+            animal.setMerchantName(currentUser.getMerChantName());
+            animal.setDescription(tDetail);
+            animal.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if(e==null) {
+                        MissionAnimal missionAnimal = new MissionAnimal();
+                        Log.d("NewAnimalDetailMsg","missname: "+missionName+" tAnimalname: "+tAniMalname);
+                        missionAnimal.setMissionName(missionName);
+                        missionAnimal.setAnimalName(tAniMalname);
+                        missionAnimal.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if(e==null) Toast.makeText(getApplicationContext(),"动物发布成功",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }else Toast.makeText(getApplicationContext(),"发布成功失败",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 

@@ -2,6 +2,7 @@ package animaladvertis.com.animaladvertis.util;
 
 import android.graphics.Matrix;
 import android.opengl.GLSurfaceView;
+import android.opengl.GLU;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -17,10 +18,10 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyRenderer implements GLSurfaceView.Renderer {
     float[] taperVertices = new float[]{
-            0.0f, 0.3f, 0.0f,
-            -0.3f, -0.3f, -0.1f,
-            0.3f, -0.3f, -0.1f,
-            0.0f, -0.1f, 0.1f
+            0.0f, 2f, 0.0f,
+            -2f, -2f, -2f,
+            2f, -2f, -2f,
+            0.0f, -2f, 2f
     };
 
     int[] taperColors = new int[]{
@@ -64,49 +65,18 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             1, 5, 6
     };
 
-//	float[] triangleData = new float[]{
-//			.1f, .6f, .0f,  //上顶点
-//			-.3f, .0f, .0f, //左顶点
-//			.3f, .1f, .0f   //右顶点
-//	};
-//	int[] triangleColor = new int[]{
-//			65535, 0, 0, 0, //上顶点红色
-//			0, 65535, 0, 0, //左顶点绿色
-//			0, 0, 65535, 0  //右顶点蓝色
-//	};
-//	float[] rectData = new float[]{
-//			.4f, .4f, .0f,    //右上顶点
-//			.4f, -.4f, .0f,   //右下顶点
-//			-.4f, .4f, .0f,   //左上顶点
-//			-.4f, -.4f, .0f   //左下顶点
-//	};
-//	int[] rectColor = new int[]{
-//			0, 65535, 0, 0,		//右上顶点绿色
-//			0, 0, 65535, 0,		//右下顶点蓝色
-//			65535, 0, 0, 0,		//左上顶点红色
-//			65535, 65535, 0, 0	//左下顶点黄色
-//	};
-//	float[] rectData2 = new float[]{
-//			-.4f, .4f, .0f,	//左上顶点
-//			.4f, .4f, .0f,	//右上顶点
-//			.4f, -.4f, .0f,	//右下顶点
-//			-.4f, -.4f, .0f	//左下顶点
-//	};
-//	float[] pentacle = new float[]{
-//		.4f, .4f, .0f,
-//		-.2f, .3f, .0f,
-//		.5f, .0f, .0f,
-//		-.4f, .0f, .0f,
-//		-.1f, -.3f, .0f
-//	};
-//	FloatBuffer triangleDataBuffer;
-//	IntBuffer triangleColorBuffer;
-//	FloatBuffer rectDataBuffer;
-//	IntBuffer rectColorBuffer;
-//	FloatBuffer rectDataBuffer2;
-//	FloatBuffer pentacleBuffer;
-//	//控制旋转的角度
-//	private float rotate;
+    private final float[] mat_ambient = { 0.2f, 0.3f, 0.8f, 1.0f };
+    private FloatBuffer mat_ambient_buf;
+    private final float[] mat_diffuse = { 0.4f, 0.6f, 0.8f, 1.0f };
+    private FloatBuffer mat_diffuse_buf;
+    private final float[] mat_specular = { 0.2f * 0.4f, 0.2f * 0.6f, 0.2f * 0.8f, 1.0f };
+    private FloatBuffer mat_specular_buf;
+
+    private Sphere mSphere = new Sphere();
+
+    public volatile float mLightX = 10f;
+    public volatile float mLightY = 10f;
+    public volatile float mLightZ = 10f;
 
     FloatBuffer taperVerticesBuffer;
     IntBuffer taperColorsBuffer;
@@ -119,6 +89,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     public float rotate=0.0f;
     public float xTranslate=0.0f;
     public float yTranslate=0.0f;
+    public float[] mvp = new float[2];
+    public static final float offset = 3;
 
 
     public MyRenderer() {
@@ -135,33 +107,61 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         //清除屏幕缓存和深度缓存
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         //启用顶点坐标数据
-        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        //gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         //启用顶点颜色数据
-        gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+        //gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
         //设置当前矩阵堆栈为模型堆栈
-        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        //gl.glMatrixMode(GL10.GL_MODELVIEW);
         //---------------------绘制第一个3d图形-----------------------
         gl.glLoadIdentity();
-        gl.glTranslatef(0.0f, 0.0f, -1.5f);
-        //gl.glTranslatef(-0.6f, 0.0f, -1.5f);
-        gl.glRotatef(rotate, 0f, 100.0f, 0f);
-        gl.glTranslatef(xTranslate,yTranslate,0.0f);
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, taperVerticesBuffer);
+        //gl.glScalef(0.5f,0.5f,0.5f);
+        //gl.glTranslatef(0,0,5);
+        //GLU.gluLookAt(gl,0.0f,0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
+        //gl.glMultMatrixf(mvp,0);
+        //gl.glTranslatef(mvp[0],mvp[1],mvp[2]);
+        gl.glEnable(GL10.GL_LIGHTING);
+        gl.glEnable(GL10.GL_LIGHT0);
+        // 材质
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient_buf);
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse_buf);
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR, mat_specular_buf);
+        // 镜面指数 0~128 越小越粗糙
+        gl.glMaterialf(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, 96.0f);
+
+        //光源位置
+        float[] light_position = {mLightX, mLightY, mLightZ, 0.0f};
+        ByteBuffer mpbb = ByteBuffer.allocateDirect(light_position.length*4);
+        mpbb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_posiBuf = mpbb.asFloatBuffer();
+        mat_posiBuf.put(light_position);
+        mat_posiBuf.position(0);
+        gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, mat_posiBuf);
+        gl.glTranslatef(mvp[0],mvp[1],-5);
+        //GLU.gluLookAt(gl,0,0,5,0,0,0,0,1,0);
+        //gl.glMultMatrixf(mvp,0);
+        mSphere.draw(gl);
+
+
+        //gl.glVertexPointer(3, GL10.GL_FLOAT, 0, taperVerticesBuffer);
         //设置顶点的颜色数据
-        gl.glColorPointer(4, GL10.GL_FIXED, 0, taperColorsBuffer);
-        gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, taperFacetsBuffer.remaining(), GL10.GL_UNSIGNED_BYTE, taperFacetsBuffer);
-        gl.glFinish();
-        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+        //gl.glColorPointer(4, GL10.GL_FIXED, 0, taperColorsBuffer);
+        //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, taperFacetsBuffer.remaining(), GL10.GL_UNSIGNED_BYTE, taperFacetsBuffer);
+       // gl.glFinish();
+        //gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+
+
     }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        gl.glDisable(GL10.GL_DIFFUSE);
+        //gl.glDisable(GL10.GL_DIFFUSE);
         gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,GL10.GL_FASTEST);
         gl.glClearColor(0,0,0,0);
         gl.glShadeModel(GL10.GL_SMOOTH);
         gl.glEnable(GL10.GL_DEPTH_TEST);
         gl.glDepthFunc(GL10.GL_LEQUAL);
+
+        initBuffers();
     }
 
     @Override
@@ -170,7 +170,16 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         float ratio = (float)width/height;
         gl.glMatrixMode(GL10.GL_PROJECTION);
         gl.glLoadIdentity();
-        gl.glFrustumf(-ratio,ratio,-1,1,1,10);
+
+        GLU.gluPerspective(gl, 90.0f, (float) width / height, 0.1f, 50.0f);
+
+        // 选择模型观察矩阵
+        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        // 重置模型观察矩阵
+        gl.glLoadIdentity();
+
+        //gl.glFrustumf(-ratio,ratio,-1,1,1,10);
+        //gl.glFrustumf(0,width,0,height,1,10);
     }
 
     //定义一个工具方法，将int[]数组转换为OpenGl ES所需的IntBuffer
@@ -199,4 +208,26 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         mBuffer.position(0);
         return mBuffer;
     }
+
+    private void initBuffers() {
+        ByteBuffer bufTemp = ByteBuffer.allocateDirect(mat_ambient.length * 4);
+        bufTemp.order(ByteOrder.nativeOrder());
+        mat_ambient_buf = bufTemp.asFloatBuffer();
+        mat_ambient_buf.put(mat_ambient);
+        mat_ambient_buf.position(0);
+
+        bufTemp = ByteBuffer.allocateDirect(mat_diffuse.length * 4);
+        bufTemp.order(ByteOrder.nativeOrder());
+        mat_diffuse_buf = bufTemp.asFloatBuffer();
+        mat_diffuse_buf.put(mat_diffuse);
+        mat_diffuse_buf.position(0);
+
+        bufTemp = ByteBuffer.allocateDirect(mat_specular.length * 4);
+        bufTemp.order(ByteOrder.nativeOrder());
+        mat_specular_buf = bufTemp.asFloatBuffer();
+        mat_specular_buf.put(mat_specular);
+        mat_specular_buf.position(0);
+    }
+
+
 }

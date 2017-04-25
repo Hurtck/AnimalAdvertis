@@ -166,13 +166,14 @@ public class MerchantActivity extends AppCompatActivity implements View.OnClickL
 
         //cvChart = new LineChartView(getApplicationContext());
         ViewGroup.LayoutParams params = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                , 200);
+                , 300);
+
 
         view.setLayoutParams(params);
 
         View lineView = new View(getApplicationContext());
         ViewGroup.LayoutParams lineParams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                , 10);
+                , 20);
         lineView.setLayoutParams(lineParams);
         llDateContent.addView(lineView);
 

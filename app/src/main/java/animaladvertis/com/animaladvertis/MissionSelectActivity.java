@@ -47,6 +47,9 @@ public class MissionSelectActivity extends BaserActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maission_select);
         ButterKnife.bind(this);
+
+        getSupportActionBar().setTitle("选择要发布任务");
+
         lvMission.setDivider(new ColorDrawable(getResources().getColor(R.color.grayUserTop)));
         lvMission.setDividerHeight(8);
         lvMission.setOnItemClickListener(new AdapterView.OnItemClickListener() {

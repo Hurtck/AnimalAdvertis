@@ -25,6 +25,15 @@ public class CollecdesHodler extends RecyclerView.ViewHolder{
     private TextView tv_gotohome;
     private WaveView waveView;
     private CircleImageView shop;
+    private TextView tv_name;
+
+    public TextView getTv_name() {
+        return tv_name;
+    }
+
+    public void setTv_name(TextView tv_name) {
+        this.tv_name = tv_name;
+    }
 
     public TextView getShopName() {
         return shopName;
@@ -73,6 +82,7 @@ public class CollecdesHodler extends RecyclerView.ViewHolder{
             tv_gotohome = (TextView) itemView.findViewById(R.id.tv_gotohome);
             shop = (CircleImageView) itemView.findViewById(R.id.cv_item_collecdes_imag);
             shopName = (TextView) itemView.findViewById(R.id.tv_item_collecdes_shopname);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
         }
         if(type==0){
             this.type=0;

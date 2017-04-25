@@ -143,23 +143,27 @@ public class FindObjectUtil {
     public void findAnimalByLocation(String currentLocation, final OnAnimalFind onAnimalFind) {
         final List<Animal> animals = new ArrayList<>();
         BmobQuery<Animal> query = new BmobQuery<>();
-        query.addWhereEqualTo("targetLocation", currentLocation);
-        query.setLimit(20);
+        query.addWhereEqualTo("targetLocation",currentLocation);
+        query.setLimit(10);
+        Log.d(TAG,"findAnimalByLocation: "+currentLocation);
         query.findObjects(new FindListener<Animal>() {
             @Override
             public void done(List<Animal> list, BmobException e) {
                 if (e == null) {
+                    Log.d(TAG,"findAnimalByLocation: "+list.size());
                     for (Animal animal:list) {
                         animals.add(animal);
                     }
                     onAnimalFind.result(animals);
+                }else{
+                    Log.d(TAG,"findAnimalByLocation: "+e.getMessage()+e.getErrorCode());
                 }
             }
         });
     }
 
     /**
-     * 根据用户名寻找动物模板
+     * 根据任务名寻找动物模板
      * @param missionName
      * @param findRusultListener
      */

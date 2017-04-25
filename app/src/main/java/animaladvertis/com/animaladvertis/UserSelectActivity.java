@@ -61,6 +61,7 @@ public class UserSelectActivity extends BaserActivity {
         ButterKnife.bind(this);
         Bmob.initialize(this,"65749386b1ac27ecde1a176282d5f49b ");
         mUser = new User();
+
     }
 
     @OnClick({R.id.iv_select_back, R.id.rl_photo, R.id.rl_name, R.id.rl_detail, R.id.rl_favourite})

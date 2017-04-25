@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 import animaladvertis.com.animaladvertis.R;
+import animaladvertis.com.animaladvertis.beans.Animal;
+import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static animaladvertis.com.animaladvertis.R.id.map;
 import static com.baidu.location.f.mC;
 
 /**
@@ -21,11 +24,11 @@ import static com.baidu.location.f.mC;
  */
 
 public class LookAdpter extends BaseAdapter {
-    private List<Map<String,Object>> mList;
+    private List<Animal> mList;
     private Context mContext;
     private MyHodler hodler;
 
-    public LookAdpter(List<Map<String,Object>> list,Context context){
+    public LookAdpter(List<Animal> list, Context context){
         mList = list;
         mContext = context;
 
@@ -58,10 +61,17 @@ public class LookAdpter extends BaseAdapter {
         }else{
             hodler = (MyHodler)convertView.getTag();
         }
-        Map<String,Object> map = mList.get(position);
-        hodler.img.setImageResource((int)map.get("img"));
-        hodler.title.setText((String)map.get("title"));
-        hodler.content.setText((String)map.get("info"));
+
+        Animal animal = mList.get(position);
+        if(animal.getName().equals("null")){
+            hodler.img.setVisibility(View.INVISIBLE);
+            hodler.content.setText("您还没有数据");
+        }else{
+            LoadImageUtil.loadIMage(mContext,hodler.img,animal.getPicture().getFileUrl(),1);
+            hodler.title.setText(animal.getName());
+            hodler.content.setText(animal.getDescription());
+        }
+
         return convertView;
     }
 

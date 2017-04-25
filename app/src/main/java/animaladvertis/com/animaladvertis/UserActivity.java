@@ -18,11 +18,15 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,16 +87,17 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private TextView level;
     private TextView rank;
     private TextView loading;
+    private ImageView ivMore;
     private List<Map<String, Object>> missionslistDate = new ArrayList<>();
     private List<Map<String, Object>> userslistDate = new ArrayList<>();
+    private List<Animal> animalListData = new ArrayList<>();
+    private PopupWindow popupWindow;
     String TAG = "UserActivityMsg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
-
         //Bmob.initialize(this, "65749386b1ac27ecde1a176282d5f49b ");
         bt_mCollect = (Button) findViewById(R.id.bt_collection);
         bt_mLook = (Button) findViewById(R.id.bt_catch);
@@ -107,6 +112,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         vp_user = (ViewPager) findViewById(R.id.vp_user);
         add = (TextView) findViewById(R.id.add) ;
         fb_catch = (CircleImageView) findViewById(R.id.fb_chatch);
+        ivMore = (ImageView)findViewById(R.id.iv_more);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         bt_mCollect.setOnClickListener(this);
         bt_mLook.setOnClickListener(this);
@@ -117,7 +123,15 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         tv_userdate.setOnClickListener(this);
         userPhoto.setOnClickListener(this);
         add.setOnClickListener(this);
+        ivMore.setOnClickListener(this);
 
+        View view = getLayoutInflater().inflate(R.layout.layout_popup,null);
+        TextView exist = (TextView) view.findViewById(R.id.exist);
+        exist.setOnClickListener(this);
+        popupWindow = new PopupWindow(view,
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
         // Example of a call to a native method
     }
 
@@ -134,6 +148,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         initUserDate();//初始化用户基本数据
         missionslistDate.clear();
         userslistDate.clear();
+        animalListData.clear();
         getDate();//获取数据
         setDefautButton();//初始化按键状态
     }
@@ -144,6 +159,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         LoadImageUtil.loadIMage(getApplicationContext(), userPhoto, userDate.getUserPhoto().getFileUrl(), 1);//加载用户头像
         userName.setText(userDate.getUsername());
         level.setText(userDate.getLevel() + "");
+
         rank.setText(userDate.getRank() + "");
     }
 
@@ -168,7 +184,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_look, null)).findViewById(R.id.lv_look);
         listView.setDivider(new ColorDrawable(getResources().getColor(R.color.grayUserTop)));
         listView.setDividerHeight(8);
-        listView.setAdapter(new LookAdpter(getDate(1), getApplicationContext()));
+        listView.setAdapter(new LookAdpter(animalListData, getApplicationContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -242,7 +258,43 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                                         userslistDate.add(map);
                                     }
                                 } else Log.d("getMissionMessage", "1/");
-                                intListView();
+                                /*************获取第二个列表的数据(animals)**********************/
+                                BmobQuery<UserAnimal> query = new BmobQuery<>();
+                                query.addWhereEqualTo("userName", BmobUser.getCurrentUser().getUsername());
+                                query.setLimit(10);
+                                query.findObjects(new FindListener<UserAnimal>() {
+                                    @Override
+                                    public void done(final List<UserAnimal> list, BmobException e) {
+                                        if (e == null) {
+                                            if(list.size()!=0){
+                                                for (final UserAnimal userAnimal : list) {
+                                                    BmobQuery<Animal> aQuery = new BmobQuery<Animal>();
+                                                    aQuery.addWhereEqualTo("name", userAnimal.getAnimalName());
+                                                    aQuery.findObjects(new FindListener<Animal>() {
+                                                        @Override
+                                                        public void done(List<Animal> alist, BmobException e) {
+                                                            if (e == null) {
+                                                                animalListData.add(alist.get(0));
+                                                            }
+                                                            if(animalListData.size()==list.size()){
+                                                                intListView();
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }else{
+                                                Animal animal = new Animal();
+                                                animal.setName("null");
+                                                animalListData.add(animal);
+                                                intListView();
+                                            }
+
+                                        } else {
+                                            loading.setText("加载失败");
+                                        }
+                                    }
+                                });
+
                             } else {
                                 Log.d("getMissionMessage", "1*" + e.getMessage() + e.getErrorCode());
                             }
@@ -254,34 +306,21 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-        /*************获取第二个列表的数据(animals)**********************/
-
 
     }
 
-    public List<Map<String, Object>> getDate(int index) {
-        List<Map<String, Object>> list = new ArrayList<>();
-        if (index == 1) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", R.drawable.pig);
-            map.put("title", "火锅兔子");
-            map.put("info", "一只超级爱吃火锅的兔子，喂！你的胡萝卜掉火锅里了");
-            list.add(map);
-
-            map = new HashMap<String, Object>();
-            map.put("img", R.drawable.pig);
-            map.put("title", "老虎队长");
-            map.put("info", "美国队长这个名字挺炫，我也来当一回队长吧。");
-            list.add(map);
-
-        }
-        return list;
-    }
 
     private void setDefautButton() {
         bt_mCollect.setBackgroundResource(mission);
         bt_mLook.setBackgroundResource(R.drawable.collec);
         bt_mRank.setBackgroundResource(R.drawable.rank);
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //if(popupWindow!=null&&popupWindow.isShowing()) popupWindow.dismiss();
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -315,13 +354,21 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent, 1);
         }
         if (v.getId() == R.id.bt_merchant) {
+            startActivity(new Intent(UserActivity.this,UserSelectMissionActivity.class));
+        }
+        if(v.getId() == R.id.add){
             if (userDate.getType().equals("merchant"))
                 startActivity(new Intent(UserActivity.this, MerchantActivity.class));
             if (userDate.getType().equals("normal"))
                 startActivity(new Intent(UserActivity.this, MerchantRegistActivity.class));
         }
-        if(v.getId() == R.id.add){
-            startActivity(new Intent(UserActivity.this,UserSelectMissionActivity.class));
+        if(v.getId()==R.id.iv_more){
+            popupWindow.showAsDropDown(ivMore);
+        }
+        if(v.getId()==R.id.exist){
+            BmobUser.logOut();
+            startActivity(new Intent(UserActivity.this,LoginActivity.class));
+            finish();
         }
     }
 

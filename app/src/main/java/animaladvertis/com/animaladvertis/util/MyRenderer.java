@@ -106,19 +106,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         //清除屏幕缓存和深度缓存
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-        //启用顶点坐标数据
-        //gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-        //启用顶点颜色数据
-        //gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-        //设置当前矩阵堆栈为模型堆栈
-        //gl.glMatrixMode(GL10.GL_MODELVIEW);
         //---------------------绘制第一个3d图形-----------------------
         gl.glLoadIdentity();
-        //gl.glScalef(0.5f,0.5f,0.5f);
-        //gl.glTranslatef(0,0,5);
-        //GLU.gluLookAt(gl,0.0f,0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
-        //gl.glMultMatrixf(mvp,0);
-        //gl.glTranslatef(mvp[0],mvp[1],mvp[2]);
         gl.glEnable(GL10.GL_LIGHTING);
         gl.glEnable(GL10.GL_LIGHT0);
         // 材质
@@ -137,19 +126,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         mat_posiBuf.position(0);
         gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, mat_posiBuf);
         gl.glTranslatef(mvp[0],mvp[1],-5);
-        //GLU.gluLookAt(gl,0,0,5,0,0,0,0,1,0);
-        //gl.glMultMatrixf(mvp,0);
         mSphere.draw(gl);
-
-
-        //gl.glVertexPointer(3, GL10.GL_FLOAT, 0, taperVerticesBuffer);
-        //设置顶点的颜色数据
-        //gl.glColorPointer(4, GL10.GL_FIXED, 0, taperColorsBuffer);
-        //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, taperFacetsBuffer.remaining(), GL10.GL_UNSIGNED_BYTE, taperFacetsBuffer);
-       // gl.glFinish();
-        //gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-
-
     }
 
     @Override
@@ -177,9 +154,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         // 重置模型观察矩阵
         gl.glLoadIdentity();
-
-        //gl.glFrustumf(-ratio,ratio,-1,1,1,10);
-        //gl.glFrustumf(0,width,0,height,1,10);
     }
 
     //定义一个工具方法，将int[]数组转换为OpenGl ES所需的IntBuffer

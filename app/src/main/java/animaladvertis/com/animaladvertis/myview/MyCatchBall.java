@@ -171,10 +171,11 @@ public class MyCatchBall extends ImageView implements SensorEventListener {
         float baseX = Math.abs(values[1]);
         float horizontal = 5*(float) Math.tan(Math.toRadians(90-values[2]));
         float vertical = (float) (5*Math.tan(30))-5*(float) Math.tan(Math.toRadians(90-baseX));
-        vertical = 5-5*(float) Math.tan(Math.toRadians(90-baseX));
+        vertical = 15-5*(float) Math.tan(Math.toRadians(90-baseX));
         horizontal = 5*(float) Math.tan(Math.toRadians(values[2]));
-        horizontal = horizontal>=10?10:horizontal;
-        vertical = vertical>-7?vertical:-7;
+        horizontal = horizontal>=20?20:horizontal;
+        horizontal = horizontal<=-20?-20:horizontal;
+        vertical = vertical>-20?vertical:-20;
 
         if(Math.abs(horizontal)+Math.abs(vertical)>=2) {
             speed=0;catchState=0;

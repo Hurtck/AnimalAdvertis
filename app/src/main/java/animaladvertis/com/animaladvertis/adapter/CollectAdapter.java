@@ -87,6 +87,7 @@ public class CollectAdapter extends BaseAdapter {
         }
         hodler.tv_kind.setText((String) map.get("name"));
         hodler.pg_progress.setProgress((int) map.get("number"));
+
         LoadImageUtil.loadIMage(mContext, hodler.im_imag, src.getFileUrl(),1);
         return convertView;
     }

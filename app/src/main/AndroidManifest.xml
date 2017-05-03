@@ -38,7 +38,9 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="wi3oGpfBHdCSQCHogvM1K7xM73dyPrF6" />
 
-        <activity android:name=".UserActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".UserActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".CollectActivity" />
         <activity android:name=".CatchActivity" />
         <activity android:name=".CollectdetailActivity" />
@@ -67,7 +69,8 @@
         <activity android:name=".NewAniamlActivity" />
         <activity android:name=".NewAniamlDetailActivity" />
         <activity android:name=".MissionSelectActivity" />
-        <activity android:name=".UserSelectMissionActivity"></activity>
+        <activity android:name=".UserSelectMissionActivity" />
+        <activity android:name=".EditAdverticeActivity"></activity>
     </application>
 
 </manifest>

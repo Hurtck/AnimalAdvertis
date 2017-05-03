@@ -24,7 +24,7 @@ public class User extends BmobUser {
     private String type;
     private String pwd;
 
-    /******************商户属性************************/
+    /********************商户属性************************/
     private String merChantName;
     private Boolean isIdentifild;
     private BmobFile merChantPhoto;

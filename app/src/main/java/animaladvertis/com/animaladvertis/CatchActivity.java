@@ -34,6 +34,7 @@ import animaladvertis.com.animaladvertis.beans.UserAnimal;
 import animaladvertis.com.animaladvertis.callback.OnCathListener;
 import animaladvertis.com.animaladvertis.myview.MyCatchBall;
 import animaladvertis.com.animaladvertis.myview.MyGLSurfaceView;
+import animaladvertis.com.animaladvertis.util.GLRender;
 import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import animaladvertis.com.animaladvertis.util.MyRenderer;
 import cn.bmob.v3.BmobUser;
@@ -139,19 +140,13 @@ public class CatchActivity extends BaserActivity implements SurfaceHolder.Callba
         });
 
 
-
-
-
         /**
          * 添加SurfaceView图层
          */
         hodler = sf_look.getHolder();
         sf_look.getHolder().addCallback(this);
         hodler.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        glSurfaceView.setRenderer(new MyRenderer());
-
-
-
+        glSurfaceView.setRenderer(new GLRender(getApplicationContext(),"huba.stl"));
 
     }
 

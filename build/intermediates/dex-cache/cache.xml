@@ -183,6 +183,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\jp.wasabeef\richeditor-android\1.2.2\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="21a28ff219324575b509d7c471487450d0c04584">
+        <dex dex="F:\myproject\AnimalAdvertis\app\build\intermediates\pre-dexed\debug\jp.wasabeef-richeditor-android-1.2.2_b439b7b712859b1a8fb0200513df0154d298e467.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="F:\myproject\AnimalAdvertis\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"

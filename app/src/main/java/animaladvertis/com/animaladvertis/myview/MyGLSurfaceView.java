@@ -18,6 +18,7 @@ import android.view.WindowManager;
 
 import java.util.List;
 
+import animaladvertis.com.animaladvertis.util.GLRender;
 import animaladvertis.com.animaladvertis.util.LoadImageUtil;
 import animaladvertis.com.animaladvertis.util.MyRenderer;
 import animaladvertis.com.animaladvertis.util.SensorUtils;
@@ -41,10 +42,9 @@ import static vi.com.gdi.bgl.android.java.EnvDrawText.pt;
 public class MyGLSurfaceView extends GLSurfaceView implements SensorEventListener {
 
     private MyRenderer mRenderer;
+    private GLRender glRender;
     private SensorManager sensorManager;
-    private Display display;
 
-    private static final float NS2S = 1.0f / 1000000000.0f;//将微秒转化为秒
     private static float[] mTmp = new float[16];
     float x,y;
     private long lastUpdateTime;
@@ -66,7 +66,6 @@ public class MyGLSurfaceView extends GLSurfaceView implements SensorEventListene
         Sensor sensors = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this,sensors,SensorManager.SENSOR_DELAY_GAME);
         WindowManager windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
-        display = windowManager.getDefaultDisplay();
     }
 
     public MyGLSurfaceView(Context context, AttributeSet attrs){
@@ -80,7 +79,6 @@ public class MyGLSurfaceView extends GLSurfaceView implements SensorEventListene
         sensorManager.registerListener(this,magnetic,SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this,sensors,SensorManager.SENSOR_DELAY_GAME);
         WindowManager windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
-        display = windowManager.getDefaultDisplay();
     }
 
 
@@ -98,37 +96,15 @@ public class MyGLSurfaceView extends GLSurfaceView implements SensorEventListene
     @Override
     public void setRenderer(Renderer renderer) {
         super.setRenderer(renderer);
-        this.mRenderer = (MyRenderer) renderer;
-        //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        this.glRender = (GLRender) renderer;
+
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN :
-                x=event.getX();y=event.getY();
-                break;
-            case MotionEvent.ACTION_MOVE :
-                if(event.getX()>x){
-                    mRenderer.rotate+=0.1f;
-                }
-                if(event.getX()<x){
-                    mRenderer.rotate-=0.1f;
-
-                }
-                requestRender();
-                break;
-            case MotionEvent.ACTION_UP :
-                break;
-        }
-        return true;
-    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         time++;
-
         long currentUpdateTime = System.currentTimeMillis();
         long timeIterval = currentUpdateTime - lastUpdateTime;
         if(timeIterval<UPTATE_INTERVAL_TIME) return;
@@ -152,8 +128,6 @@ public class MyGLSurfaceView extends GLSurfaceView implements SensorEventListene
         SensorManager.getRotationMatrix(R, null, accelerometerValues,
                 magneticFieldValues);
         SensorManager.getOrientation(R, values);
-        float x = values[2];
-        float y = values[1];
         values[0] = (float) Math.toDegrees(values[0]);
         values[1] = (float) Math.toDegrees(values[1]);
         values[2] = (float) Math.toDegrees(values[2]);
@@ -161,31 +135,17 @@ public class MyGLSurfaceView extends GLSurfaceView implements SensorEventListene
         float baseX = Math.abs(values[1]);
         float horizontal = 5*(float) Math.tan(Math.toRadians(90-values[2]));
         float vertical = offset-5*(float) Math.tan(Math.toRadians(90-baseX));
-        vertical = 5-5*(float) Math.tan(Math.toRadians(90-baseX));
+        vertical = 15-5*(float) Math.tan(Math.toRadians(90-baseX));
         horizontal = 5*(float) Math.tan(Math.toRadians(values[2]));
-        horizontal = horizontal>=10?10:horizontal;
-        vertical = vertical>-7?vertical:-7;
+        horizontal = horizontal>=20?20:horizontal;
+        horizontal = horizontal<=-20?-20:horizontal;
+        vertical = vertical>-20?vertical:-20;
 
-        mRenderer.mvp = new float[]{horizontal,-vertical,0};
+        glRender.mvp = new float[]{horizontal,-vertical,0};
         requestRender();
 
         Log.i("MyGlSurfaceView", "Y轴方向角度："+baseX+" X轴方向角度："+values[2]+" y偏移量："+(5-5*(float) Math.tan(Math.toRadians(90-baseX)))+" x偏移量: "+5*(float) Math.tan(Math.toRadians(values[2])));
 
-        /*if(vertical<0){
-            Log.i("MyGlSurfaceView", "向下"+vertical);
-        }
-        if(vertical>0){
-            Log.i("MyGlSurfaceView", "向上"+vertical);
-        }
-        if(horizontal<0){
-            Log.i("MyGlSurfaceView", "向左"+horizontal);
-        }
-        if(horizontal>0){
-            Log.i("MyGlSurfaceView", "向右"+horizontal);
-        }*/
-
-        change[0] = baseX;
-        change[1] = values[2];
 
     }
 

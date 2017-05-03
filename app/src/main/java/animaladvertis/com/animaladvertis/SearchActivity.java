@@ -93,7 +93,6 @@ public class SearchActivity extends BaserActivity implements View.OnClickListene
         tip = (TextView) findViewById(R.id.tv_tip);
         animalContent =(LinearLayout) findViewById(R.id.ll_animalContent);
 
-
         getSupportActionBar().setTitle("搜索界面");
 
         user = BmobUser.getCurrentUser(User.class);
@@ -113,7 +112,7 @@ public class SearchActivity extends BaserActivity implements View.OnClickListene
                         tip.setVisibility(View.INVISIBLE);
                         district = bdLocation.getDistrict();
                         currentLocation = bdLocation.getAddrStr();
-
+                        Toast.makeText(getApplicationContext(),currentLocation,Toast.LENGTH_SHORT).show();
                         getAniaml();
                     }
                     if(!radar.isSearching()){

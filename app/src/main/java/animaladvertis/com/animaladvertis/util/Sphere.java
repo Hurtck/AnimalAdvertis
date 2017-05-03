@@ -68,7 +68,6 @@ public class Sphere {
 
             }
             vBuf.position(0);
-
             gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vBuf);
             gl.glNormalPointer(GL10.GL_FLOAT, 0, vBuf);
             gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, n);

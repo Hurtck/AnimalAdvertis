@@ -1,6 +1,7 @@
 package animaladvertis.com.animaladvertis;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -75,15 +77,13 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private Button bt_mRank, tv_userdate;
     private Button bt_merchant;
     private NestedScrollView nestedScrollView;
-    private AppBarLayout appBarLayout;
     private List<View> listViews = new ArrayList<View>();
     private CircleImageView userPhoto;
-    private List<Map<String, Object>> list;
     private ViewPager vp_user;
     private CircleImageView fb_catch;
     private User userDate;
     private TextView userName;
-    private TextView locattion,add;
+    private TextView add;
     private TextView level;
     private TextView rank;
     private TextView loading;
@@ -92,7 +92,12 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private List<Map<String, Object>> userslistDate = new ArrayList<>();
     private List<Animal> animalListData = new ArrayList<>();
     private PopupWindow popupWindow;
+
+    private CollectAdapter collectAdapter;
+    private LookAdpter lookAdpter;
+    private RankAdapter rankAdapter;
     String TAG = "UserActivityMsg";
+    private TextView test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,30 +130,40 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         add.setOnClickListener(this);
         ivMore.setOnClickListener(this);
 
+
         View view = getLayoutInflater().inflate(R.layout.layout_popup,null);
         TextView exist = (TextView) view.findViewById(R.id.exist);
+        test = (TextView) view.findViewById(R.id.test);
         exist.setOnClickListener(this);
+        test.setOnClickListener(this);
         popupWindow = new PopupWindow(view,
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+        userDate = BmobUser.getCurrentUser(User.class);
+        init();
         // Example of a call to a native method
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        userDate = BmobUser.getCurrentUser(User.class);
-        init();
+
+    }
+
+    private void upDate() {
+        if(lookAdpter!=null&&collectAdapter!=null&&rankAdapter!=null){
+            lookAdpter.notifyDataSetChanged();
+            collectAdapter.notifyDataSetChanged();
+            rankAdapter.notifyDataSetChanged();
+        }
 
     }
 
 
     private void init() {
         initUserDate();//初始化用户基本数据
-        missionslistDate.clear();
-        userslistDate.clear();
-        animalListData.clear();
         getDate();//获取数据
         setDefautButton();//初始化按键状态
     }
@@ -168,28 +183,51 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         setMissionsData(layoutInflater);
         setCollectDate(layoutInflater);
         setRankDate(layoutInflater);
+
+        upDate();
         vp_user.setAdapter(new UserViewPagerAdpter(listViews));
         vp_user.setCurrentItem(1);
     }
 
     private void setRankDate(LayoutInflater layoutInflater) {
         //设置排名界面列表数据
+        rankAdapter = new RankAdapter(getApplicationContext(),userslistDate);
         ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_rank, null)).findViewById(R.id.lv_rank);
-        listView.setAdapter(new RankAdapter(getApplicationContext(), userslistDate));
+        listView.setAdapter(rankAdapter);
         listViews.add(listView);
     }
 
     private void setCollectDate(LayoutInflater layoutInflater) {
         //设置收藏界面列表数据
-        ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_look, null)).findViewById(R.id.lv_look);
+        lookAdpter = new LookAdpter(animalListData, getApplicationContext());
+        final ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_look, null)).findViewById(R.id.lv_look);
         listView.setDivider(new ColorDrawable(getResources().getColor(R.color.grayUserTop)));
         listView.setDividerHeight(8);
-        listView.setAdapter(new LookAdpter(animalListData, getApplicationContext()));
+        listView.setAdapter(lookAdpter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("OnItemClick","position: "+position);
                 Intent intent = new Intent(UserActivity.this, CollectdetailActivity.class);
                 startActivity(intent);
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                UserAnimal animal = new UserAnimal();
+                animal.setAnimalName(animalListData.get(position).getName());
+                animal.delete(new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e == null) {
+                            getDate();
+                            listView.setAdapter(new LookAdpter(animalListData, getApplicationContext()));
+                            Toast.makeText(getApplicationContext(),"删除成功",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                return true;
             }
         });
         listViews.add(listView);
@@ -197,10 +235,11 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setMissionsData(LayoutInflater layoutInflater) {
         //设置任务界面列表数据
+        collectAdapter = new CollectAdapter(getApplicationContext(), missionslistDate);
         ListView listView = (ListView) (layoutInflater.inflate(R.layout.user_fragment_collect, null)).findViewById(R.id.lv_collect);
         listView.setDivider(new ColorDrawable(getResources().getColor(R.color.grayUserTop)));
         listView.setDividerHeight(8);
-        listView.setAdapter(new CollectAdapter(getApplicationContext(), missionslistDate));
+        listView.setAdapter(collectAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -222,6 +261,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getDate() {
+        missionslistDate.clear();
+        userslistDate.clear();
+        animalListData.clear();
         /*****************获取第一个列表(missionslistDate)的数据*****************/
         FindObjectUtil find = new FindObjectUtil(userDate);
         find.findAnimalMission(userDate.getUsername(), new OnMissionsFind() {
@@ -275,6 +317,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                                                         public void done(List<Animal> alist, BmobException e) {
                                                             if (e == null) {
                                                                 animalListData.add(alist.get(0));
+                                                            }else{
+                                                                loading.setText("加载失败");
                                                             }
                                                             if(animalListData.size()==list.size()){
                                                                 intListView();
@@ -302,7 +346,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     });
                 } else {
-                    loading.setText("找不到数据");
+                    loading.setText("加载失败");
                 }
             }
         });
@@ -369,6 +413,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             BmobUser.logOut();
             startActivity(new Intent(UserActivity.this,LoginActivity.class));
             finish();
+        }
+        if(v.getId()==R.id.test){
+            startActivity(new Intent(UserActivity.this,EditAdverticeActivity.class));
         }
     }
 

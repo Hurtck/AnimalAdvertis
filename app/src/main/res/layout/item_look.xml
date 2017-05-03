@@ -6,6 +6,8 @@
     android:padding="15dp"
     android:background="@drawable/radius_bg">
 
+
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cv_item_look"
         android:layout_width="100dp"
